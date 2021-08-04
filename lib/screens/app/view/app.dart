@@ -22,6 +22,7 @@ class _FindAnimeAppState extends State<FindAnimeApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'FindAnime',
       initialRoute: Routes.homeScreen,
       onGenerateRoute: Routes.router.generator,
       theme: themeData(),

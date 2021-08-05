@@ -65,7 +65,7 @@ class ResultListItem extends StatelessWidget {
                         content: SelectableText(
                             'Synonyms: ${result.anilist!.synonyms}\n'
                             'NSFW: ${result.anilist!.isAdult}\n'
-                            'This moment at: ${printDuration(Duration(seconds: result.from.toInt()), abbreviated: true)}\n'
+                            'This moment at: ${prettyDuration(Duration(seconds: result.from.toInt()), abbreviated: true)}\n'
                             'Episode: ${result.episode}\n'),
                         actions: [
                           TextButton(

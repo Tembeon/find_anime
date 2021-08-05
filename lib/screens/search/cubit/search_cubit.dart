@@ -27,16 +27,33 @@ class SearchCubit extends Cubit<SearchState> {
         List<Result> resultData = data.map((e) => Result.fromJson(e)).toList();
         emit(SearchState(status: SearchStatus.success, result: resultData));
       } else {
-        emit(SearchState(status: SearchStatus.failure));
+        late String errorText;
+        switch (response.statusCode) {
+          case 400:
+            errorText = 'Provided image is empty';
+            break;
+          case 429:
+            errorText = 'Too many requests, please try again later';
+            break;
+          case 500:
+            errorText = 'Something wrong on server';
+            break;
+          default:
+            errorText = 'Something went wrong';
+            break;
+        }
+        emit(SearchState(status: SearchStatus.failure, errorText: errorText));
       }
     } on TimeoutException {
-      emit(SearchState(status: SearchStatus.failure));
+      emit(SearchState(
+          status: SearchStatus.failure, errorText: 'Response timed out'));
     } catch (e) {
-      emit(SearchState(status: SearchStatus.failure));
+      emit(SearchState(
+          status: SearchStatus.failure,
+          errorText: 'Unexpected error has occurred'));
       rethrow;
     }
   }
 
   void resetState() => emit(SearchState());
-
 }

@@ -26,7 +26,8 @@ class _SearchViewState extends State<SearchView> {
                   return BuildResultList(result: state.result);
                 case SearchStatus.failure:
                   return BuildError(
-                      errorText: 'Something went wrong, please try again');
+                      errorText: state.errorText ??
+                          'Something went wrong, please try again');
                 case SearchStatus.loading:
                   return BuildLoadingIndicator();
               }

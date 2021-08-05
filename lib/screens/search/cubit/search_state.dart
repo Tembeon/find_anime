@@ -11,17 +11,22 @@ class SearchState extends Equatable {
   const SearchState({
     this.status = SearchStatus.initial,
     this.result = const <dynamic>[],
+    this.errorText,
   });
 
   final SearchStatus status;
   final List<dynamic> result;
+  final String? errorText;
 
   SearchState copyWith({
     SearchStatus? status,
     List<dynamic>? result,
+    String? errorText,
   }) {
     return SearchState(
-        status: status ?? this.status, result: result ?? this.result);
+        status: status ?? this.status,
+        result: result ?? this.result,
+        errorText: errorText ?? this.errorText);
   }
 
   @override

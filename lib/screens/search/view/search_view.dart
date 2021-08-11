@@ -21,7 +21,7 @@ class _SearchViewState extends State<SearchView> {
             builder: (context, state) {
               switch (state.status) {
                 case SearchStatus.initial:
-                  return BuildSearchView();
+                  return const BuildSearchView();
                 case SearchStatus.success:
                   return BuildResultList(result: state.result);
                 case SearchStatus.failure:
@@ -29,7 +29,7 @@ class _SearchViewState extends State<SearchView> {
                       errorText: state.errorText ??
                           'Something went wrong, please try again');
                 case SearchStatus.loading:
-                  return BuildLoadingIndicator();
+                  return const BuildLoadingIndicator();
               }
             },
           ),
@@ -39,8 +39,8 @@ class _SearchViewState extends State<SearchView> {
                     SearchStatus.success
                 ? FloatingActionButton.extended(
                     onPressed: () => context.read<SearchCubit>().resetState(),
-                    label: Text('New search'),
-                    icon: Icon(Icons.search_outlined),
+                    label: const Text('New search'),
+                    icon: const Icon(Icons.search_outlined),
                   )
                 : null,
       ),
@@ -85,7 +85,7 @@ class _BuildSearchViewState extends State<BuildSearchView> {
         OutlinedButton(
           onPressed: () =>
               context.read<SearchCubit>().searchByUrl(textController.text),
-          child: Text('Search'),
+          child: const Text('Search'),
         ),
       ],
     );
@@ -98,7 +98,7 @@ class BuildLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }
 }
 
@@ -121,7 +121,7 @@ class BuildError extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           child: OutlinedButton(
             onPressed: () => context.read<SearchCubit>().resetState(),
-            child: Text('New search'),
+            child: const Text('New search'),
           ),
         ),
       ],

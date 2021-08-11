@@ -5,5 +5,5 @@ import '/screens/search/search.dart';
 
 Handler homeScreenHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-  return SearchScreen();
+  return const SearchScreen();
 });

@@ -9,5 +9,5 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy(); // remove # from url
   Bloc.observer = AppObserver();
-  runApp(FindAnimeApp());
+  runApp(const FindAnimeApp());
 }

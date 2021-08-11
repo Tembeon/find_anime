@@ -11,7 +11,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<SearchCubit>(
       create: (context) => SearchCubit(),
-      child: SearchView(),
+      child: const SearchView(),
     );
   }
 }

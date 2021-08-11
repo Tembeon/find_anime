@@ -10,17 +10,17 @@ import '../models/result.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(SearchState());
+  SearchCubit() : super(const SearchState());
 
   Future<void> searchByUrl(String imageURL) async {
-    emit(SearchState(status: SearchStatus.loading));
+    emit(const SearchState(status: SearchStatus.loading));
 
-    const String SEARCH_BY_URL =
+    const String baseURL =
         'https://api.trace.moe/search?anilistInfo&url=';
     try {
       http.Response response = await http
-          .get(Uri.parse(SEARCH_BY_URL + imageURL))
-          .timeout(Duration(seconds: 70));
+          .get(Uri.parse(baseURL + imageURL))
+          .timeout(const Duration(seconds: 70));
       if (response.statusCode == 200) {
         Map<String, dynamic> resultMap = jsonDecode(response.body);
         List<dynamic> data = resultMap['result'];
@@ -45,15 +45,15 @@ class SearchCubit extends Cubit<SearchState> {
         emit(SearchState(status: SearchStatus.failure, errorText: errorText));
       }
     } on TimeoutException {
-      emit(SearchState(
+      emit(const SearchState(
           status: SearchStatus.failure, errorText: 'Response timed out'));
     } catch (e) {
-      emit(SearchState(
+      emit(const SearchState(
           status: SearchStatus.failure,
           errorText: 'Unexpected error has occurred'));
       rethrow;
     }
   }
 
-  void resetState() => emit(SearchState());
+  void resetState() => emit(const SearchState());
 }

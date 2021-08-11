@@ -50,13 +50,13 @@ class ResultListItem extends StatelessWidget {
             children: [
               IconButton(
                 tooltip: 'Open in browser',
-                icon: Icon(Icons.open_in_new_outlined),
+                icon: const Icon(Icons.open_in_new_outlined),
                 onPressed: () =>
                     launch('https://anilist.co/anime/${result.anilist!.id}'),
               ),
               IconButton(
                 tooltip: 'More info',
-                icon: Icon(Icons.info_outlined),
+                icon: const Icon(Icons.info_outlined),
                 onPressed: () => showDialog(
                     context: context,
                     builder: (context) {
@@ -69,7 +69,7 @@ class ResultListItem extends StatelessWidget {
                             'Episode: ${result.episode}\n'),
                         actions: [
                           TextButton(
-                            child: Text('Close'),
+                            child: const Text('Close'),
                             onPressed: () => Navigator.pop(context),
                           ),
                         ],

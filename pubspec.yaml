@@ -37,14 +37,15 @@ dependencies:
   http: ^0.13.3
   duration: ^3.0.6
   url_launcher: ^6.0.9
-  file_picker: ^3.0.4
+  file_picker: ^4.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   # hive_generator: ^1.1.0 # depends on analyzer ^1.0.0, and [freezed] depends on analyzer ^2.0.0
-  build_runner: ^2.1.0
-  freezed: ^0.14.3
+  build_runner: ^2.1.1
+  freezed: ^0.14.5
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

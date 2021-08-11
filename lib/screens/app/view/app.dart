@@ -5,6 +5,8 @@ import '../../../theme.dart';
 import '../utils/routes.dart';
 
 class FindAnimeApp extends StatefulWidget {
+  const FindAnimeApp({Key? key}) : super(key: key);
+
   @override
   State<FindAnimeApp> createState() => _FindAnimeAppState();
 }

@@ -17,11 +17,11 @@ class SearchResult {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['frameCount'] = this.frameCount;
-    data['error'] = this.error;
-    if (this.result != null) {
-      data['result'] = this.result!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['frameCount'] = frameCount;
+    data['error'] = error;
+    if (result != null) {
+      data['result'] = result!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -60,17 +60,17 @@ class Result {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.anilist != null) {
-      data['anilist'] = this.anilist!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (anilist != null) {
+      data['anilist'] = anilist!.toJson();
     }
-    data['filename'] = this.filename;
-    data['episode'] = this.episode;
-    data['from'] = this.from;
-    data['to'] = this.to;
-    data['similarity'] = this.similarity;
-    data['video'] = this.video;
-    data['image'] = this.image;
+    data['filename'] = filename;
+    data['episode'] = episode;
+    data['from'] = from;
+    data['to'] = to;
+    data['similarity'] = similarity;
+    data['video'] = video;
+    data['image'] = image;
     return data;
   }
 }
@@ -98,14 +98,14 @@ class Anilist {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['idMal'] = this.idMal;
-    if (this.title != null) {
-      data['title'] = this.title!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['idMal'] = idMal;
+    if (title != null) {
+      data['title'] = title!.toJson();
     }
-    data['synonyms'] = this.synonyms;
-    data['isAdult'] = this.isAdult;
+    data['synonyms'] = synonyms;
+    data['isAdult'] = isAdult;
     return data;
   }
 }
@@ -124,10 +124,10 @@ class Title {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['native'] = this.native;
-    data['romaji'] = this.romaji;
-    data['english'] = this.english;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['native'] = native;
+    data['romaji'] = romaji;
+    data['english'] = english;
     return data;
   }
 }

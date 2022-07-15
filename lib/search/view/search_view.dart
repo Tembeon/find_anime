@@ -4,14 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
 
-class SearchView extends StatefulWidget {
+class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
 
-  @override
-  State<SearchView> createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,17 +44,10 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-class BuildSearchView extends StatefulWidget {
+class BuildSearchView extends StatelessWidget {
   const BuildSearchView({
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<BuildSearchView> createState() => _BuildSearchViewState();
-}
-
-class _BuildSearchViewState extends State<BuildSearchView> {
-  TextEditingController textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +64,7 @@ class _BuildSearchViewState extends State<BuildSearchView> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
             child: TextFormField(
-              controller: textController,
+              controller: context.read<SearchCubit>().controller,
               textInputAction: TextInputAction.next,
               style: Theme.of(context).textTheme.headline4,
               decoration: const InputDecoration(labelText: 'Enter image url'),
@@ -84,8 +72,7 @@ class _BuildSearchViewState extends State<BuildSearchView> {
           ),
         ),
         OutlinedButton(
-          onPressed: () =>
-              context.read<SearchCubit>().searchByUrl(textController.text),
+          onPressed: () => context.read<SearchCubit>().searchByUrl(),
           child: const Text('Search'),
         ),
       ],

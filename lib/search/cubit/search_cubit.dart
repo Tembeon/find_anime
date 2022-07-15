@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,10 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(const SearchState());
 
-  Future<void> searchByUrl(String imageURL) async {
+  TextEditingController controller = TextEditingController();
+
+  Future<void> searchByUrl() async {
+    String imageURL = controller.text;
     emit(const SearchState(status: SearchStatus.loading));
 
     const String baseURL = 'https://api.trace.moe/search?anilistInfo&url=';

@@ -1,8 +1,7 @@
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme.dart';
-import '../utils/routes.dart';
+import '../utils/app_router.dart';
 
 class FindAnimeApp extends StatefulWidget {
   const FindAnimeApp({Key? key}) : super(key: key);
@@ -12,21 +11,12 @@ class FindAnimeApp extends StatefulWidget {
 }
 
 class _FindAnimeAppState extends State<FindAnimeApp> {
-  final router = FluroRouter();
-
-  @override
-  void initState() {
-    Routes.defineRoutes(router);
-    Routes.router = router;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'FindAnime',
-      initialRoute: Routes.homeScreen,
-      onGenerateRoute: Routes.router.generator,
+      routerDelegate: AppRouter.beamerDelegate,
+      routeInformationParser: AppRouter.beamerParser,
       theme: themeData(),
       darkTheme: darkThemeData(),
     );

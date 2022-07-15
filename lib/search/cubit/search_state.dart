@@ -24,9 +24,10 @@ class SearchState extends Equatable {
     String? errorText,
   }) {
     return SearchState(
-        status: status ?? this.status,
-        result: result ?? this.result,
-        errorText: errorText ?? this.errorText);
+      status: status ?? this.status,
+      result: result ?? this.result,
+      errorText: errorText ?? this.errorText,
+    );
   }
 
   @override

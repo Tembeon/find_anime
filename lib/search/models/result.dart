@@ -23,6 +23,7 @@ class SearchResult {
     if (result != null) {
       data['result'] = result!.map((v) => v.toJson()).toList();
     }
+
     return data;
   }
 }
@@ -30,22 +31,23 @@ class SearchResult {
 class Result {
   late Anilist? anilist;
   late String filename;
-  late int? episode;
-  late double from;
-  late double to;
-  late double similarity;
+  late num? episode;
+  late num from;
+  late num to;
+  late num similarity;
   late String video;
   late String image;
 
-  Result(
-      {required this.anilist,
-      required this.filename,
-      required this.episode,
-      required this.from,
-      required this.to,
-      required this.similarity,
-      required this.video,
-      required this.image});
+  Result({
+    required this.anilist,
+    required this.filename,
+    required this.episode,
+    required this.from,
+    required this.to,
+    required this.similarity,
+    required this.video,
+    required this.image,
+  });
 
   Result.fromJson(Map<String, dynamic> json) {
     anilist =
@@ -71,6 +73,7 @@ class Result {
     data['similarity'] = similarity;
     data['video'] = video;
     data['image'] = image;
+
     return data;
   }
 }
@@ -82,12 +85,13 @@ class Anilist {
   late List<String> synonyms;
   late bool isAdult;
 
-  Anilist(
-      {required this.id,
-      required this.idMal,
-      required this.title,
-      required this.synonyms,
-      required this.isAdult});
+  Anilist({
+    required this.id,
+    required this.idMal,
+    required this.title,
+    required this.synonyms,
+    required this.isAdult,
+  });
 
   Anilist.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -106,6 +110,7 @@ class Anilist {
     }
     data['synonyms'] = synonyms;
     data['isAdult'] = isAdult;
+
     return data;
   }
 }
@@ -128,6 +133,7 @@ class Title {
     data['native'] = native;
     data['romaji'] = romaji;
     data['english'] = english;
+
     return data;
   }
 }

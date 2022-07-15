@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/result.dart';
@@ -15,8 +15,7 @@ class SearchCubit extends Cubit<SearchState> {
   Future<void> searchByUrl(String imageURL) async {
     emit(const SearchState(status: SearchStatus.loading));
 
-    const String baseURL =
-        'https://api.trace.moe/search?anilistInfo&url=';
+    const String baseURL = 'https://api.trace.moe/search?anilistInfo&url=';
     try {
       http.Response response = await http
           .get(Uri.parse(baseURL + imageURL))
@@ -46,11 +45,14 @@ class SearchCubit extends Cubit<SearchState> {
       }
     } on TimeoutException {
       emit(const SearchState(
-          status: SearchStatus.failure, errorText: 'Response timed out'));
+        status: SearchStatus.failure,
+        errorText: 'Response timed out',
+      ));
     } catch (e) {
       emit(const SearchState(
-          status: SearchStatus.failure,
-          errorText: 'Unexpected error has occurred'));
+        status: SearchStatus.failure,
+        errorText: 'Unexpected error has occurred',
+      ));
       rethrow;
     }
   }

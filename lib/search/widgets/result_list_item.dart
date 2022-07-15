@@ -18,17 +18,19 @@ class ResultListItem extends StatelessWidget {
       child: Column(
         children: [
           AnimatedSize(
-              curve: Curves.fastOutSlowIn,
-              duration: const Duration(milliseconds: 400),
-              child: Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: Image.network(
-                    result.image,
-                    fit: BoxFit.fill,
-                  ))),
+            curve: Curves.fastOutSlowIn,
+            duration: const Duration(milliseconds: 400),
+            child: Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Image.network(
+                result.image,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
           SelectableText(
             result.anilist!.title!.english ?? 'Unknown english name',
             style: Theme.of(context).textTheme.headline6,
@@ -51,31 +53,34 @@ class ResultListItem extends StatelessWidget {
               IconButton(
                 tooltip: 'Open in browser',
                 icon: const Icon(Icons.open_in_new_outlined),
-                onPressed: () =>
-                    launch('https://anilist.co/anime/${result.anilist!.id}'),
+                onPressed: () => launchUrl(Uri.parse(
+                  'https://anilist.co/anime/${result.anilist!.id}',
+                )),
               ),
               IconButton(
                 tooltip: 'More info',
                 icon: const Icon(Icons.info_outlined),
                 onPressed: () => showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: SelectableText(result.anilist!.title!.romaji!),
-                        content: SelectableText(
-                            'Synonyms: ${result.anilist!.synonyms}\n'
-                            'NSFW: ${result.anilist!.isAdult}\n'
-                            'This moment at: ${prettyDuration(Duration(seconds: result.from.toInt()), abbreviated: true)}\n'
-                            'Episode: ${result.episode}\n'),
-                        actions: [
-                          TextButton(
-                            child: const Text('Close'),
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
-                      );
-                    }),
-              )
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: SelectableText(result.anilist!.title!.romaji!),
+                      content: SelectableText(
+                        'Synonyms: ${result.anilist!.synonyms}\n'
+                        'NSFW: ${result.anilist!.isAdult}\n'
+                        'This moment at: ${prettyDuration(Duration(seconds: result.from.toInt()), abbreviated: true)}\n'
+                        'Episode: ${result.episode}\n',
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const Text('Close'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ],

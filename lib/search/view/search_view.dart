@@ -26,8 +26,9 @@ class _SearchViewState extends State<SearchView> {
                   return BuildResultList(result: state.result);
                 case SearchStatus.failure:
                   return BuildError(
-                      errorText: state.errorText ??
-                          'Something went wrong, please try again');
+                    errorText: state.errorText ??
+                        'Something went wrong, please try again',
+                  );
                 case SearchStatus.loading:
                   return const BuildLoadingIndicator();
               }
@@ -141,12 +142,13 @@ class BuildResultList extends StatelessWidget {
     return SizedBox(
       width: deviceWidth > 1080 ? deviceWidth / 3 : deviceWidth,
       child: ListView.builder(
-          itemCount: result.length,
-          itemBuilder: (context, index) {
-            return ResultListItem(
-              result: result[index],
-            );
-          }),
+        itemCount: result.length,
+        itemBuilder: (context, index) {
+          return ResultListItem(
+            result: result[index],
+          );
+        },
+      ),
     );
   }
 }

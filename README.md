@@ -9,5 +9,5 @@ Try it now - https://find-anime.web.app/
 * Install as app to your device
 * Search engine by https://trace.moe/about
 
-### Warning
+<br>
 This project was built as BLoC training. 

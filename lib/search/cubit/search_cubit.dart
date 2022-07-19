@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/result.dart';
+import '../models/search_result_model.dart';
 
 part 'search_state.dart';
 
@@ -16,21 +16,26 @@ class SearchCubit extends Cubit<SearchState> {
   TextEditingController controller = TextEditingController();
 
   Future<void> searchByUrl() async {
-    String imageURL = controller.text;
     emit(const SearchState(status: SearchStatus.loading));
 
     const String baseURL = 'https://api.trace.moe/search?anilistInfo&url=';
+    final String imageURL = controller.text;
+
     try {
       http.Response response = await http
           .get(Uri.parse(baseURL + imageURL))
           .timeout(const Duration(seconds: 70));
+
       if (response.statusCode == 200) {
-        Map<String, dynamic> resultMap = jsonDecode(response.body);
-        List<dynamic> data = resultMap['result'];
-        List<Result> resultData = data.map((e) => Result.fromJson(e)).toList();
-        emit(SearchState(status: SearchStatus.success, result: resultData));
+        SearchResultModel searchResultModel =
+            SearchResultModel.fromJson(jsonDecode(response.body));
+
+        emit(SearchState(
+          status: SearchStatus.success,
+          result: searchResultModel.result!,
+        ));
       } else {
-        late String errorText;
+        String errorText;
         switch (response.statusCode) {
           case 400:
             errorText = 'Provided image is empty';

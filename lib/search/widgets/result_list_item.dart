@@ -2,11 +2,11 @@ import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/result.dart';
+import '../models/search_result_model.dart';
 
 class ResultListItem extends StatelessWidget {
   const ResultListItem({Key? key, required this.result}) : super(key: key);
-  final Result result;
+  final ResultModel result;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ResultListItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: Image.network(
-                result.image,
+                result.image!,
                 fit: BoxFit.fill,
               ),
             ),
@@ -44,7 +44,7 @@ class ResultListItem extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
           ),
           SelectableText(
-            'Similarity - ${(result.similarity * 100).toStringAsFixed(1)}%',
+            'Similarity - ${(result.similarity! * 100).toStringAsFixed(1)}%',
             style: Theme.of(context).textTheme.headline6,
           ),
           Row(
@@ -68,7 +68,7 @@ class ResultListItem extends StatelessWidget {
                       content: SelectableText(
                         'Synonyms: ${result.anilist!.synonyms}\n'
                         'NSFW: ${result.anilist!.isAdult}\n'
-                        'This moment at: ${prettyDuration(Duration(seconds: result.from.toInt()), abbreviated: true)}\n'
+                        'This moment at: ${prettyDuration(Duration(seconds: result.from!.toInt()), abbreviated: true)}\n'
                         'Episode: ${result.episode}\n',
                       ),
                       actions: [

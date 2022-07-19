@@ -10,7 +10,7 @@ enum SearchStatus {
 class SearchState extends Equatable {
   const SearchState({
     this.status = SearchStatus.initial,
-    this.result = const <dynamic>[],
+    this.result = const <ResultModel>[],
     this.errorText,
   });
 
@@ -20,7 +20,7 @@ class SearchState extends Equatable {
 
   SearchState copyWith({
     SearchStatus? status,
-    List<dynamic>? result,
+    List<ResultModel>? result,
     String? errorText,
   }) {
     return SearchState(

@@ -1,6 +1,9 @@
+import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waterfall_flow/waterfall_flow.dart';
 
+import '../models/search_result_model.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
 
@@ -9,41 +12,27 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: BlocBuilder<SearchCubit, SearchState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case SearchStatus.initial:
-                  return const BuildSearchView();
-                case SearchStatus.success:
-                  return BuildResultList(result: state.result);
-                case SearchStatus.failure:
-                  return BuildError(
-                    errorText: state.errorText ??
-                        'Something went wrong, please try again',
-                  );
-                case SearchStatus.loading:
-                  return const BuildLoadingIndicator();
-              }
-            },
-          ),
-        ),
-        floatingActionButton:
-            context.select((SearchCubit cubit) => cubit.state.status) ==
-                    SearchStatus.success
-                ? FloatingActionButton.extended(
-                    onPressed: () => context.read<SearchCubit>().resetState(),
-                    label: const Text('New search'),
-                    icon: const Icon(Icons.search_outlined),
-                  )
-                : null,
-      ),
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case SearchStatus.initial:
+            return const BuildSearchView();
+          case SearchStatus.success:
+            return ResultList(result: state.result);
+          case SearchStatus.failure:
+            return BuildError(
+              errorText:
+                  state.errorText ?? 'Something went wrong, please try again',
+            );
+          case SearchStatus.loading:
+            return const BuildLoadingIndicator();
+        }
+      },
     );
   }
 }
 
+/// View with search view, initial view
 class BuildSearchView extends StatelessWidget {
   const BuildSearchView({
     Key? key,
@@ -51,31 +40,50 @@ class BuildSearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Find anime:',
-          style: Theme.of(context).textTheme.headline4,
+    MediaQueryData mediaQuery = MediaQuery.of(context);
+
+    return Scaffold(
+      body: SafeArea(
+        minimum: EdgeInsets.symmetric(
+          horizontal: mediaQuery.size.longestSide / 10,
         ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width / 1.5,
-            child: TextFormField(
-              controller: context.read<SearchCubit>().controller,
-              textInputAction: TextInputAction.next,
-              style: Theme.of(context).textTheme.headline4,
-              decoration: const InputDecoration(labelText: 'Enter image url'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'New search',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(fontSize: 24.0),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: TextFormField(
+                  controller: context.read<SearchCubit>().controller,
+                  textInputAction: TextInputAction.next,
+                  style: Theme.of(context).textTheme.headline4,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter image URL',
+                    helperText: 'Link should be direct to image',
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 42.0,
+              width: mediaQuery.size.width / 4,
+              child: ElevatedButton(
+                onPressed: () => context.read<SearchCubit>().searchByUrl(),
+                child: const Text('Search'),
+              ),
+            ),
+          ],
         ),
-        OutlinedButton(
-          onPressed: () => context.read<SearchCubit>().searchByUrl(),
-          child: const Text('Search'),
-        ),
-      ],
+      ),
     );
   }
 }
@@ -86,7 +94,7 @@ class BuildLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CircularProgressIndicator();
+    return const Scaffold(body: Center(child: CircularProgressIndicator()));
   }
 }
 
@@ -97,45 +105,81 @@ class BuildError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          errorText,
-          style: Theme.of(context).textTheme.headline4,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: OutlinedButton(
-            onPressed: () => context.read<SearchCubit>().resetState(),
-            child: const Text('New search'),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            errorText,
+            style: Theme.of(context).textTheme.headline4,
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: OutlinedButton(
+              onPressed: () => context.read<SearchCubit>().resetState(),
+              child: const Text('New search'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-/// ListView with parsed result
-class BuildResultList extends StatelessWidget {
-  const BuildResultList({Key? key, required this.result}) : super(key: key);
-  final List<dynamic> result;
+class ResultList extends StatelessWidget {
+  const ResultList({Key? key, required this.result}) : super(key: key);
+  final List<ResultModel> result;
 
   @override
   Widget build(BuildContext context) {
-    final deviceWidth = MediaQuery.of(context).size.width;
+    return BreakpointBuilder(
+      builder: (context, breakpoint) {
+        final LayoutClass device = breakpoint.device;
+        final int columns = device == LayoutClass.desktop ? 2 : 1;
 
-    return SizedBox(
-      width: deviceWidth > 1080 ? deviceWidth / 3 : deviceWidth,
-      child: ListView.builder(
-        itemCount: result.length,
-        itemBuilder: (context, index) {
-          return ResultListItem(
-            result: result[index],
-          );
-        },
-      ),
+        return Scaffold(
+          body: WaterfallFlow.builder(
+            itemCount: result.length,
+            padding: EdgeInsets.symmetric(
+              horizontal: getPaddings(breakpoint.window),
+            ),
+            //cacheExtent: 0.0,
+            gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columns,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0,
+              lastChildLayoutTypeBuilder: (index) => index == result.length
+                  ? LastChildLayoutType.foot
+                  : LastChildLayoutType.none,
+            ),
+            itemBuilder: (context, index) => ResultListItem(
+              result: result[index],
+              device: breakpoint.device,
+            ),
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => context.read<SearchCubit>().resetState(),
+            label: const Text('Open search'),
+            icon: const Icon(Icons.search_outlined),
+          ),
+        );
+      },
     );
+  }
+
+  double getPaddings(WindowSize size) {
+    switch (size) {
+      case WindowSize.xsmall:
+        return 12.0;
+      case WindowSize.small:
+        return 18.0;
+      case WindowSize.medium:
+        return 24.0;
+      case WindowSize.large:
+        return 240.0;
+      case WindowSize.xlarge:
+        return 546.0;
+    }
   }
 }

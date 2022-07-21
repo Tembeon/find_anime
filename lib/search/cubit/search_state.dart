@@ -15,7 +15,7 @@ class SearchState extends Equatable {
   });
 
   final SearchStatus status;
-  final List<dynamic> result;
+  final List<ResultModel> result;
   final String? errorText;
 
   SearchState copyWith({

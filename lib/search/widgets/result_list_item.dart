@@ -165,11 +165,8 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
   void initState() {
     _controller = VideoPlayerController.network(
       widget.mediaUrl,
-      videoPlayerOptions: VideoPlayerOptions(),
     )..initialize().then((value) {
-        _controller.setVolume(0.0);
-        _controller.setLooping(false);
-        _controller.play();
+        _controller.setVolume(0.0).then((_) => _controller.play());
         setState;
       });
     super.initState();
@@ -246,7 +243,7 @@ class ResultEpisodeInfo extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Episode ${result.episode}, moment at '
+          'Episode ${result.episode ?? 'Unknown'}, moment at '
           '${prettyDuration(
             Duration(seconds: result.from!.toInt()),
             abbreviated: true,

@@ -169,6 +169,7 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
         _controller.setVolume(0.0).then((_) => _controller.play());
         setState;
       });
+
     super.initState();
   }
 
@@ -185,8 +186,29 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
         return SizedBox(
           width: double.infinity,
           height: constraints.maxWidth / 1.78, // 1.78 cuz aspect ratio is 16:9
-          child: VideoPlayer(
-            _controller,
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
+            children: [
+              MouseRegion(
+                onExit: (event) async {
+                  await _controller.setLooping(false);
+                  await _controller.setVolume(0.0);
+                },
+                onHover: (event) async {
+                  await _controller.setLooping(true);
+                  await _controller.setVolume(0.1);
+                  await _controller.play();
+                },
+                child: VideoPlayer(
+                  _controller,
+                ),
+              ),
+              VideoProgressIndicator(
+                _controller,
+                allowScrubbing: true,
+                padding: EdgeInsets.zero,
+              ),
+            ],
           ),
         );
       },

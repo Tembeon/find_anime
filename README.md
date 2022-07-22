@@ -23,3 +23,11 @@ Try it now - https://tembeon.github.io/find_anime/
 2. run `flutter pub get`
 3. run `flutter pub run build_runner build`
 4. build project to web or mobile
+
+### TO-DO
+- [ ] Add search via file drop
+- [ ] Add ability to choose app language
+- [ ] Add ability to choose app theme
+- [ ] Maybe: search via Ctrl + V image
+- [ ] Maybe: get image via mobile sharing dialog
+- [ ] Maybe: compile on Windows, Android, Linux

@@ -194,6 +194,7 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
                 onExit: (event) async {
                   await _controller.setLooping(false);
                   await _controller.setVolume(0.0);
+                  await _controller.pause();
                 },
                 onHover: (event) async {
                   await _controller.setLooping(true);

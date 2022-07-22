@@ -22,8 +22,7 @@ class SearchView extends StatelessWidget {
             return ResultList(result: state.result);
           case SearchStatus.failure:
             return BuildError(
-              errorText:
-                  state.errorText ?? S.of(context).errorUnknown,
+              errorText: state.errorText ?? S.of(context).errorUnknown,
             );
           case SearchStatus.loading:
             return const BuildLoadingIndicator();
@@ -42,11 +41,12 @@ class BuildSearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
+    bool isMobile = mediaQuery.size.width < 600;
 
     return Scaffold(
       body: SafeArea(
         minimum: EdgeInsets.symmetric(
-          horizontal: mediaQuery.size.longestSide / 10,
+          horizontal: isMobile ? 12.0 : mediaQuery.size.longestSide / 10,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,22 +107,27 @@ class BuildError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            errorText,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: OutlinedButton(
-              onPressed: () => context.read<SearchCubit>().resetState(),
-              child: Text(S.of(context).openSearchButton),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              errorText,
+              style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 24.0),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: SizedBox(
+                height: 42.0,
+                child: ElevatedButton(
+                  onPressed: () => context.read<SearchCubit>().resetState(),
+                  child: Text(S.of(context).openSearchButton),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -142,8 +147,12 @@ class ResultList extends StatelessWidget {
         return Scaffold(
           body: WaterfallFlow.builder(
             itemCount: result.length,
-            padding: EdgeInsets.symmetric(
-              horizontal: getPaddings(breakpoint.window),
+            padding: EdgeInsets.only(
+              top: device != LayoutClass.desktop
+                  ? MediaQuery.of(context).padding.top
+                  : 0.0,
+              left: getPaddings(breakpoint.window),
+              right: getPaddings(breakpoint.window),
             ),
             //cacheExtent: 0.0,
             gridDelegate: SliverWaterfallFlowDelegateWithFixedCrossAxisCount(

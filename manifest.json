@@ -1,11 +1,11 @@
 {
-    "name": "FindAnime",
-    "short_name": "FindAnime",
+    "name": "find_anime",
+    "short_name": "find_anime",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Find anime by image.",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

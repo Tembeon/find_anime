@@ -167,7 +167,7 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
     _controller = VideoPlayerController.network(
       widget.mediaUrl,
     )..initialize().then((value) {
-        _controller.setVolume(0.0).then((_) => _controller.play());
+        _controller.setVolume(0.0).then((_) => _controller.pause());
         setState;
       });
 

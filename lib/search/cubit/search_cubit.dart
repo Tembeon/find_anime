@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
+import '../../generated/l10n.dart';
 import '../models/search_result_model.dart';
 
 part 'search_state.dart';
@@ -38,29 +39,29 @@ class SearchCubit extends Cubit<SearchState> {
         String errorText;
         switch (response.statusCode) {
           case 400:
-            errorText = 'Provided image is empty';
+            errorText = S().error400;
             break;
           case 429:
-            errorText = 'Too many requests, please try again later';
+            errorText = S().error429;
             break;
           case 500:
-            errorText = 'Something wrong on server';
+            errorText = S().error500;
             break;
           default:
-            errorText = 'Something went wrong';
+            errorText = S().errorUnknown;
             break;
         }
         emit(SearchState(status: SearchStatus.failure, errorText: errorText));
       }
     } on TimeoutException {
-      emit(const SearchState(
+      emit(SearchState(
         status: SearchStatus.failure,
-        errorText: 'Response timed out',
+        errorText: S().errorTimeOut,
       ));
     } catch (e) {
-      emit(const SearchState(
+      emit(SearchState(
         status: SearchStatus.failure,
-        errorText: 'Unexpected error has occurred',
+        errorText: S().errorUnexpected(e),
       ));
       rethrow;
     }

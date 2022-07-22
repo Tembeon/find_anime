@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../generated/l10n.dart';
 import '../models/search_result_model.dart';
 
 class ResultListItem extends StatelessWidget {
@@ -87,7 +88,7 @@ class ResultButtonBar extends StatelessWidget {
             onPressed: () => launchUrl(Uri.parse(
               'https://anilist.co/anime/${anilist.id}',
             )),
-            child: const Text('View in anilist'),
+            child: Text(S.of(context).viewInAnilist),
           ),
         ),
         SizedBox(
@@ -98,12 +99,12 @@ class ResultButtonBar extends StatelessWidget {
                 ClipboardData(text: anilist.title!.romaji),
               );
 
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Copied!'),
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(S.of(context).copiedText),
                 behavior: SnackBarBehavior.floating,
               ));
             },
-            child: const Text('Copy name'),
+            child: Text(S.of(context).copyNameButton),
           ),
         ),
       ],
@@ -124,10 +125,10 @@ class ResultTitleBlock extends StatelessWidget {
     return ListTile(
       leading: TextAvatar(
         shape: Shape.Circular,
-        text: titles?.romaji ?? 'No romaji name',
+        text: titles?.romaji ?? S.of(context).noRomajiName,
       ),
       title: SelectableText(
-        titles?.romaji ?? 'No romaji name',
+        titles?.romaji ?? S.of(context).noRomajiName,
         style: TextStyle(
           fontSize: 24.0,
           fontFamily: 'Roboto',
@@ -135,7 +136,7 @@ class ResultTitleBlock extends StatelessWidget {
         ),
       ),
       subtitle: SelectableText(
-        titles?.native ?? 'No japanese name',
+        titles?.native ?? S.of(context).noJapaneseName,
         style: TextStyle(
           fontSize: 14.0,
           fontFamily: 'Roboto',
@@ -232,7 +233,7 @@ class ResultInfoText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Similarity: ${(similarity * 100).toStringAsFixed(1)}%',
+          S.of(context).similarityText((similarity * 100).toStringAsFixed(1)),
           style: TextStyle(
             fontSize: 22.0,
             fontFamily: 'Roboto',
@@ -244,7 +245,7 @@ class ResultInfoText extends StatelessWidget {
         ),
         if (adultOnly)
           Text(
-            'Adult only!',
+            S.of(context).adultOnly,
             style: TextStyle(
               fontSize: 16.0,
               fontFamily: 'Roboto',
@@ -265,11 +266,13 @@ class ResultEpisodeInfo extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Episode ${result.episode ?? 'Unknown'}, moment at '
-          '${prettyDuration(
-            Duration(seconds: result.from!.toInt()),
-            abbreviated: true,
-          )}',
+          S.of(context).episodeText(
+                result.episode?.toInt() ?? 0,
+                prettyDuration(
+                  Duration(seconds: result.from!.toInt()),
+                  abbreviated: true,
+                ),
+              ),
           style: TextStyle(
             fontSize: 18.0,
             fontFamily: 'Roboto',

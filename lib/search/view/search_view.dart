@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
+import '../../generated/l10n.dart';
 import '../models/search_result_model.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
@@ -22,7 +23,7 @@ class SearchView extends StatelessWidget {
           case SearchStatus.failure:
             return BuildError(
               errorText:
-                  state.errorText ?? 'Something went wrong, please try again',
+                  state.errorText ?? S.of(context).errorUnknown,
             );
           case SearchStatus.loading:
             return const BuildLoadingIndicator();
@@ -52,7 +53,7 @@ class BuildSearchView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'New search',
+              S.of(context).newSearch,
               style: Theme.of(context)
                   .textTheme
                   .headline4!
@@ -66,9 +67,9 @@ class BuildSearchView extends StatelessWidget {
                   controller: context.read<SearchCubit>().controller,
                   textInputAction: TextInputAction.next,
                   style: Theme.of(context).textTheme.headline4,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter image URL',
-                    helperText: 'Link should be direct to image',
+                  decoration: InputDecoration(
+                    labelText: S.of(context).enterImageUrl,
+                    helperText: S.of(context).enterImageUrlHint,
                   ),
                 ),
               ),
@@ -78,7 +79,7 @@ class BuildSearchView extends StatelessWidget {
               width: mediaQuery.size.width / 4,
               child: ElevatedButton(
                 onPressed: () => context.read<SearchCubit>().searchByUrl(),
-                child: const Text('Search'),
+                child: Text(S.of(context).searchButtonText),
               ),
             ),
           ],
@@ -118,7 +119,7 @@ class BuildError extends StatelessWidget {
             padding: const EdgeInsets.all(18.0),
             child: OutlinedButton(
               onPressed: () => context.read<SearchCubit>().resetState(),
-              child: const Text('New search'),
+              child: Text(S.of(context).openSearchButton),
             ),
           ),
         ],
@@ -160,7 +161,7 @@ class ResultList extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () => context.read<SearchCubit>().resetState(),
-            label: const Text('Open search'),
+            label: Text(S.of(context).openSearchButton),
             icon: const Icon(Icons.search_outlined),
           ),
         );

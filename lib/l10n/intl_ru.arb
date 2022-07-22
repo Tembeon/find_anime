@@ -1,0 +1,100 @@
+{
+  "newSearch": "Новый поиск",
+  "@newSearch": {
+    "description": "Title on the search page"
+  },
+  "enterImageUrl": "Введите URL изображения",
+  "@enterImageUrl": {
+    "description": "Placeholder text in text form for pasting image URL"
+  },
+  "enterImageUrlHint": "Ссылка на изображение дожна быть прямой",
+  "@enterImageUrlHint": {
+    "description": "Hint text under text form for pasting image URL"
+  },
+  "searchButtonText": "Найти",
+  "@searchButtonText": {
+    "description": "Text on search button"
+  },
+  "openSearchButton": "Открыть поиск",
+  "@openSearchButton": {
+    "description": "Text on float action button that open search view"
+  },
+  "copyNameButton": "Копировать название",
+  "@copyNameButton": {
+    "description": "Text on copy name button"
+  },
+  "copiedText": "Скопировано!",
+  "@copiedText": {
+    "description": "Show text with successful name copy"
+  },
+  "noRomajiName": "Ромадзи названия не найдено",
+  "@noRomajiName": {
+    "description": "Indicates that there is no romaji name"
+  },
+  "noJapaneseName": "Японское название не найдено",
+  "@noJapaneseName": {
+    "description": "Indicates that there is no japanese name"
+  },
+  "viewInAnilist": "Открыть на anilist",
+  "@viewInAnilist": {
+    "description": "Text on view in anilist button"
+  },
+  "similarityText": "Схожесть: {similarityNum}%",
+  "@similarityText": {
+    "description": "text showing the percentage of result match",
+    "placeholders":{
+      "similarityNum": {
+        "type": "String",
+        "example": "93.5%"
+      }
+    }
+  },
+  "episodeText": "Эпизод {episodeNumber}, момент на {momentTime}",
+  "@episodeText": {
+    "description": "e.x: Episode 1, moment at 8m, 42s",
+    "placeholders": {
+      "episodeNumber": {
+        "type": "int",
+        "example": "1"
+      },
+      "momentTime": {
+        "type": "String",
+        "example": "8m, 42s"
+      }
+    }
+  },
+  "adultOnly": "Только для взрослых!",
+  "@adultOnly": {
+    "description": "Indicates that this title is NSFW"
+  },
+  "error400": "Предоставленное изображение пустое",
+  "@error400": {
+    "description": "An error, indicates that provided image is empty"
+  },
+  "error429": "Слишком много запросов, попробуйте позже",
+  "@error429": {
+    "description": "An error, indicates too many requests by user"
+  },
+  "error500": "Что-то пошло не так на сервере",
+  "@error500": {
+    "description": "An error, indicates something wrong on server"
+  },
+  "errorTimeOut": "Время ответа сервера истекло",
+  "@errorTimeOut": {
+    "description": "response timed out error"
+  },
+  "errorUnexpected": "Произошла неожиданная ошибка\nКод ошибки: {error}",
+  "@errorUnexpected": {
+    "description": "An error, indicates unexpected error has occurred",
+    "placeholders": {
+      "error": {
+        "type": "Object",
+        "example": "TimeOutException"
+      }
+    }
+  },
+  "errorUnknown": "Что-то пошло не так",
+  "@errorUnknown": {
+    "description": "An error, when something unknown went wrong"
+  }
+}

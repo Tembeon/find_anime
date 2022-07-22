@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "noJapaneseName": MessageLookupByLibrary.simpleMessage(
             "Японское название не найдено"),
         "noRomajiName":
-            MessageLookupByLibrary.simpleMessage("Ромадзи названия не найдено"),
+            MessageLookupByLibrary.simpleMessage("Ромадзи название не найдено"),
         "openSearchButton":
             MessageLookupByLibrary.simpleMessage("Открыть поиск"),
         "searchButtonText": MessageLookupByLibrary.simpleMessage("Найти"),

@@ -39,10 +39,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "episodeText": m0,
         "error400":
             MessageLookupByLibrary.simpleMessage("Provided image is empty"),
-        "error429": MessageLookupByLibrary.simpleMessage(
+        "error402": MessageLookupByLibrary.simpleMessage(
             "Too many requests, please try again later"),
         "error500":
             MessageLookupByLibrary.simpleMessage("Something wrong on server"),
+        "error503":
+            MessageLookupByLibrary.simpleMessage("Search queue is full"),
+        "error504": MessageLookupByLibrary.simpleMessage(
+            "Server is overload, try again later"),
         "errorTimeOut":
             MessageLookupByLibrary.simpleMessage("Response timed out"),
         "errorUnexpected": m1,

@@ -71,12 +71,20 @@
   "@error400": {
     "description": "An error, indicates that provided image is empty"
   },
-  "error429": "Too many requests, please try again later",
-  "@error429": {
+  "error402": "Too many requests, please try again later",
+  "@error402": {
     "description": "An error, indicates too many requests by user"
   },
   "error500": "Something wrong on server",
   "@error500": {
+    "description": "An error, indicates something wrong on server"
+  },
+  "error503": "Search queue is full",
+  "@error503": {
+    "description": "An error, indicates search queue is full"
+  },
+  "error504": "Server is overload, try again later",
+  "@error504": {
     "description": "An error, indicates something wrong on server"
   },
   "errorTimeOut": "Response timed out",

@@ -42,10 +42,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "episodeText": m0,
         "error400": MessageLookupByLibrary.simpleMessage(
             "Предоставленное изображение пустое"),
-        "error429": MessageLookupByLibrary.simpleMessage(
+        "error402": MessageLookupByLibrary.simpleMessage(
             "Слишком много запросов, попробуйте позже"),
         "error500": MessageLookupByLibrary.simpleMessage(
             "Что-то пошло не так на сервере"),
+        "error503":
+            MessageLookupByLibrary.simpleMessage("Поисковая очередь заполнена"),
+        "error504": MessageLookupByLibrary.simpleMessage(
+            "Сервер перегружен, попробуйте повторить запрос позже"),
         "errorTimeOut": MessageLookupByLibrary.simpleMessage(
             "Время ответа сервера истекло"),
         "errorUnexpected": m1,

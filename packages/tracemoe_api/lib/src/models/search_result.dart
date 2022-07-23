@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'search_result_model.freezed.dart';
-part 'search_result_model.g.dart';
+part 'search_result.freezed.dart';
+part 'search_result.g.dart';
 
 @freezed
 class SearchResultModel with _$SearchResultModel {

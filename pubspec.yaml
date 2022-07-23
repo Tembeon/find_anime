@@ -33,6 +33,11 @@ dependencies:
   waterfall_flow: ^3.0.2
   intl: ^0.17.0
 
+  tracemoe_repository:
+    path: packages/tracemoe_repository
+  tracemoe_api:
+    path: packages/tracemoe_api
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

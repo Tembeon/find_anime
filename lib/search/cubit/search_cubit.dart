@@ -1,69 +1,56 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
+import 'package:tracemoe_api/tracemoe_api.dart';
+import 'package:tracemoe_repository/tracemoe_repository.dart';
 
 import '../../generated/l10n.dart';
-import '../models/search_result_model.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(const SearchState());
+  SearchCubit(this._traceMoeRepository) : super(const SearchState());
+  final TraceMoeRepository _traceMoeRepository;
 
   TextEditingController controller = TextEditingController();
 
   Future<void> searchByUrl() async {
     emit(const SearchState(status: SearchStatus.loading));
 
-    const String baseURL = 'https://api.trace.moe/search?anilistInfo&url=';
     final String imageURL = controller.text;
 
     try {
-      http.Response response = await http
-          .get(Uri.parse(baseURL + imageURL))
-          .timeout(const Duration(seconds: 70));
+      List<Result> resultList =
+          await _traceMoeRepository.getResultByImageUrl(imageURL);
 
-      if (response.statusCode == 200) {
-        SearchResultModel searchResultModel =
-            SearchResultModel.fromJson(jsonDecode(response.body));
-
-        emit(SearchState(
-          status: SearchStatus.success,
-          result: searchResultModel.result!,
-        ));
-      } else {
-        String errorText;
-        switch (response.statusCode) {
-          case 400:
-            errorText = S().error400;
-            break;
-          case 429:
-            errorText = S().error429;
-            break;
-          case 500:
-            errorText = S().error500;
-            break;
-          default:
-            errorText = S().errorUnknown;
-            break;
-        }
-        emit(SearchState(status: SearchStatus.failure, errorText: errorText));
-      }
-    } on TimeoutException {
       emit(SearchState(
-        status: SearchStatus.failure,
-        errorText: S().errorTimeOut,
+        status: SearchStatus.success,
+        result: resultList,
       ));
     } catch (e) {
-      emit(SearchState(
-        status: SearchStatus.failure,
-        errorText: S().errorUnexpected(e),
-      ));
-      rethrow;
+      String errorText;
+      switch (e) {
+        case InvalidImageUrlFailure:
+          errorText = S().error400;
+          break;
+        case SearchQuotaDepletedFailure:
+          errorText = S().error402;
+          break;
+        case SearchInternalErrorFailure:
+          errorText = S().error500;
+          break;
+        case SearchQueueIsFullFailure:
+          errorText = S().error503;
+          break;
+        case SearchServerOverloadFailure:
+          errorText = S().error504;
+          break;
+        default:
+          errorText = S().errorUnknown;
+      }
+      emit(SearchState(status: SearchStatus.failure, errorText: errorText));
     }
   }
 

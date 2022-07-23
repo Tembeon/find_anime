@@ -1,10 +1,10 @@
 import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
 import '../../generated/l10n.dart';
-import '../models/search_result_model.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
 
@@ -135,7 +135,7 @@ class BuildError extends StatelessWidget {
 
 class ResultList extends StatelessWidget {
   const ResultList({Key? key, required this.result}) : super(key: key);
-  final List<ResultModel> result;
+  final List<Result> result;
 
   @override
   Widget build(BuildContext context) {

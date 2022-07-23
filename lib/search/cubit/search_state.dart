@@ -10,17 +10,17 @@ enum SearchStatus {
 class SearchState extends Equatable {
   const SearchState({
     this.status = SearchStatus.initial,
-    this.result = const <ResultModel>[],
+    this.result = const <Result>[],
     this.errorText,
   });
 
   final SearchStatus status;
-  final List<ResultModel> result;
+  final List<Result> result;
   final String? errorText;
 
   SearchState copyWith({
     SearchStatus? status,
-    List<ResultModel>? result,
+    List<Result>? result,
     String? errorText,
   }) {
     return SearchState(

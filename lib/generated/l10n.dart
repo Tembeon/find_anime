@@ -191,10 +191,10 @@ class S {
   }
 
   /// `Too many requests, please try again later`
-  String get error429 {
+  String get error402 {
     return Intl.message(
       'Too many requests, please try again later',
-      name: 'error429',
+      name: 'error402',
       desc: 'An error, indicates too many requests by user',
       args: [],
     );
@@ -205,6 +205,26 @@ class S {
     return Intl.message(
       'Something wrong on server',
       name: 'error500',
+      desc: 'An error, indicates something wrong on server',
+      args: [],
+    );
+  }
+
+  /// `Search queue is full`
+  String get error503 {
+    return Intl.message(
+      'Search queue is full',
+      name: 'error503',
+      desc: 'An error, indicates search queue is full',
+      args: [],
+    );
+  }
+
+  /// `Server is overload, try again later`
+  String get error504 {
+    return Intl.message(
+      'Server is overload, try again later',
+      name: 'error504',
       desc: 'An error, indicates something wrong on server',
       args: [],
     );

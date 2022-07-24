@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
@@ -35,6 +36,25 @@ class TraceMoeApiClient {
   Future<SearchResultModel> getResultByImageUrl(String url) async {
     final response = await http.get(Uri.parse('$_baseUrl&url=$url'));
 
+    return _getSearchModel(response);
+  }
+
+  Future<SearchResultModel> getResultByFile(
+    Uint8List bytes, {
+    required String mimeType,
+  }) async {
+    final response = await http.post(
+      Uri.parse(_baseUrl),
+      headers: {
+        'Content-Type': mimeType,
+      },
+      body: bytes,
+    );
+
+    return _getSearchModel(response);
+  }
+
+  SearchResultModel _getSearchModel(http.Response response) {
     switch (response.statusCode) {
       case 200:
         return SearchResultModel.fromJson(jsonDecode(response.body));

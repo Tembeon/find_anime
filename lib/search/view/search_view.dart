@@ -1,4 +1,5 @@
 import 'package:breakpoint/breakpoint.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -51,13 +52,14 @@ class BuildSearchView extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            DropzoneView(
-              operation: DragOperation.move,
-              onCreated: context.read<SearchCubit>().setFileController,
-              onDrop: (file) async =>
-                  await context.read<SearchCubit>().searchByFile(file),
-              onError: print,
-            ),
+            if (kIsWeb)
+              DropzoneView(
+                operation: DragOperation.move,
+                onCreated: context.read<SearchCubit>().setFileController,
+                onDrop: (file) async =>
+                    await context.read<SearchCubit>().searchByFile(file),
+                onError: print,
+              ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +100,7 @@ class BuildSearchView extends StatelessWidget {
                 ButtonBar(
                   alignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    if (kIsWeb) SizedBox(
                       height: 42.0,
                       width: mediaQuery.size.width / 4,
                       child: OutlinedButton(

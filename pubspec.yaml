@@ -21,7 +21,6 @@ dependencies:
   freezed_annotation: ^2.1.0
   equatable: ^2.0.3
   # other packages
-  dio: ^4.0.6
   http: ^0.13.4
   duration: ^3.0.11
   url_launcher: ^6.1.5
@@ -32,6 +31,7 @@ dependencies:
   colorize_text_avatar: ^1.0.2
   waterfall_flow: ^3.0.2
   intl: ^0.17.0
+  flutter_dropzone: ^3.0.5
 
   tracemoe_repository:
     path: packages/tracemoe_repository

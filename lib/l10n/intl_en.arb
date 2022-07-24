@@ -3,7 +3,7 @@
   "@newSearch": {
     "description": "Title on the search page"
   },
-  "newSearchHint": "Enter URL, drop file to window ot select file via button",
+  "newSearchHint": "Enter URL, drop file to window or select file via button",
   "@newSearchHint": {
     "description": "Informs the user about possible search methods"
   },

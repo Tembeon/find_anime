@@ -60,10 +60,10 @@ class S {
     );
   }
 
-  /// `Enter URL, drop file to window ot select file via button`
+  /// `Enter URL, drop file to window or select file via button`
   String get newSearchHint {
     return Intl.message(
-      'Enter URL, drop file to window ot select file via button',
+      'Enter URL, drop file to window or select file via button',
       name: 'newSearchHint',
       desc: 'Informs the user about possible search methods',
       args: [],

@@ -54,7 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "newSearch": MessageLookupByLibrary.simpleMessage("New search"),
         "newSearchHint": MessageLookupByLibrary.simpleMessage(
-            "Enter URL, drop file to window ot select file via button"),
+            "Enter URL, drop file to window or select file via button"),
         "noJapaneseName":
             MessageLookupByLibrary.simpleMessage("No japanese name"),
         "noRomajiName": MessageLookupByLibrary.simpleMessage("No romaji name"),

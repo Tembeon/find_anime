@@ -6,7 +6,9 @@ This project was built as BLoC training.
 
 Find anime name by image URL. 
 
-Try it now - https://tembeon.github.io/find_anime/
+Try it:
+* Web - https://tembeon.github.io/find_anime/
+* Android - https://github.com/Tembeon/find_anime/releases/latest
 
 ## Features
 * Search by an image url
@@ -25,7 +27,7 @@ Try it now - https://tembeon.github.io/find_anime/
 4. build project to web or mobile
 
 ### TO-DO
-- [ ] Add search via file drop
+- [X] Add search via file drop
 - [ ] Add ability to choose app language
 - [ ] Add ability to choose app theme
 - [ ] Maybe: search via Ctrl + V image

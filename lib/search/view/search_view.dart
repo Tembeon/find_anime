@@ -1,6 +1,7 @@
 import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
@@ -48,39 +49,76 @@ class BuildSearchView extends StatelessWidget {
         minimum: EdgeInsets.symmetric(
           horizontal: isMobile ? 12.0 : mediaQuery.size.longestSide / 10,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Text(
-              S.of(context).newSearch,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(fontSize: 24.0),
+            DropzoneView(
+              operation: DragOperation.move,
+              onCreated: context.read<SearchCubit>().setFileController,
+              onDrop: (file) async =>
+                  await context.read<SearchCubit>().searchByFile(file),
+              onError: print,
             ),
-            Padding(
-              padding: const EdgeInsets.all(28.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: TextFormField(
-                  controller: context.read<SearchCubit>().controller,
-                  textInputAction: TextInputAction.next,
-                  style: Theme.of(context).textTheme.headline4,
-                  decoration: InputDecoration(
-                    labelText: S.of(context).enterImageUrl,
-                    helperText: S.of(context).enterImageUrlHint,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  S.of(context).newSearch,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: 24.0),
+                ),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                Text(
+                  S.of(context).newSearchHint,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: 18.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(28.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: TextFormField(
+                      controller: context.read<SearchCubit>().controller,
+                      textInputAction: TextInputAction.next,
+                      style: Theme.of(context).textTheme.headline4,
+                      decoration: InputDecoration(
+                        labelText: S.of(context).enterImageUrl,
+                        helperText: S.of(context).enterImageUrlHint,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 42.0,
-              width: mediaQuery.size.width / 4,
-              child: ElevatedButton(
-                onPressed: () => context.read<SearchCubit>().searchByUrl(),
-                child: Text(S.of(context).searchButtonText),
-              ),
+                ButtonBar(
+                  alignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 42.0,
+                      width: mediaQuery.size.width / 4,
+                      child: OutlinedButton(
+                        onPressed: () async =>
+                            await context.read<SearchCubit>().selectFile(),
+                        child: Text(S.of(context).selectFileButtonText),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 42.0,
+                      width: mediaQuery.size.width / 4,
+                      child: ElevatedButton(
+                        onPressed: () =>
+                            context.read<SearchCubit>().searchByUrl(),
+                        child: Text(S.of(context).searchButtonText),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -114,7 +152,10 @@ class BuildError extends StatelessWidget {
           children: [
             Text(
               errorText,
-              style: Theme.of(context).textTheme.headline4!.copyWith(fontSize: 24.0),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(fontSize: 24.0),
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),

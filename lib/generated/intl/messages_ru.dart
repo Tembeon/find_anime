@@ -56,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknown":
             MessageLookupByLibrary.simpleMessage("Что-то пошло не так"),
         "newSearch": MessageLookupByLibrary.simpleMessage("Новый поиск"),
+        "newSearchHint": MessageLookupByLibrary.simpleMessage(
+            "Введите URL, перетащите файл на окно или выберите файл с помощью кнопки"),
         "noJapaneseName": MessageLookupByLibrary.simpleMessage(
             "Японское название не найдено"),
         "noRomajiName":
@@ -63,6 +65,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "openSearchButton":
             MessageLookupByLibrary.simpleMessage("Открыть поиск"),
         "searchButtonText": MessageLookupByLibrary.simpleMessage("Найти"),
+        "selectFileButtonText":
+            MessageLookupByLibrary.simpleMessage("Выбрать файл"),
         "similarityText": m2,
         "viewInAnilist":
             MessageLookupByLibrary.simpleMessage("Открыть на anilist")

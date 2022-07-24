@@ -53,11 +53,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknown":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "newSearch": MessageLookupByLibrary.simpleMessage("New search"),
+        "newSearchHint": MessageLookupByLibrary.simpleMessage(
+            "Enter URL, drop file to window ot select file via button"),
         "noJapaneseName":
             MessageLookupByLibrary.simpleMessage("No japanese name"),
         "noRomajiName": MessageLookupByLibrary.simpleMessage("No romaji name"),
         "openSearchButton": MessageLookupByLibrary.simpleMessage("Open search"),
         "searchButtonText": MessageLookupByLibrary.simpleMessage("Search"),
+        "selectFileButtonText":
+            MessageLookupByLibrary.simpleMessage("Select file"),
         "similarityText": m2,
         "viewInAnilist": MessageLookupByLibrary.simpleMessage("View in anilist")
       };

@@ -1,8 +1,10 @@
 {
   "newSearch": "Новый поиск",
+  "newSearchHint": "Введите URL, перетащите файл на окно или выберите файл с помощью кнопки",
   "enterImageUrl": "Введите URL изображения",
   "enterImageUrlHint": "Ссылка на изображение дожна быть прямой",
   "searchButtonText": "Найти",
+  "selectFileButtonText": "Выбрать файл",
   "openSearchButton": "Открыть поиск",
   "copyNameButton": "Копировать название",
   "copiedText": "Скопировано!",

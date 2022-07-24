@@ -3,6 +3,10 @@
   "@newSearch": {
     "description": "Title on the search page"
   },
+  "newSearchHint": "Enter URL, drop file to window ot select file via button",
+  "@newSearchHint": {
+    "description": "Informs the user about possible search methods"
+  },
   "enterImageUrl": "Enter image URL",
   "@enterImageUrl": {
     "description": "Placeholder text in text form for pasting image URL"
@@ -14,6 +18,10 @@
   "searchButtonText": "Search",
   "@searchButtonText": {
     "description": "Text on search button"
+  },
+  "selectFileButtonText": "Select file",
+  "@selectFileButtonText": {
+    "description": "Text on button for file selecting"
   },
   "openSearchButton": "Open search",
   "@openSearchButton": {

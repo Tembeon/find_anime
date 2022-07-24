@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `Enter URL, drop file to window ot select file via button`
+  String get newSearchHint {
+    return Intl.message(
+      'Enter URL, drop file to window ot select file via button',
+      name: 'newSearchHint',
+      desc: 'Informs the user about possible search methods',
+      args: [],
+    );
+  }
+
   /// `Enter image URL`
   String get enterImageUrl {
     return Intl.message(
@@ -86,6 +96,16 @@ class S {
       'Search',
       name: 'searchButtonText',
       desc: 'Text on search button',
+      args: [],
+    );
+  }
+
+  /// `Select file`
+  String get selectFileButtonText {
+    return Intl.message(
+      'Select file',
+      name: 'selectFileButtonText',
+      desc: 'Text on button for file selecting',
       args: [],
     );
   }

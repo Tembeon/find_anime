@@ -1,8 +1,10 @@
 import 'package:breakpoint/breakpoint.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:pasteboard/pasteboard.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
@@ -24,7 +26,7 @@ class SearchView extends StatelessWidget {
             return ResultList(result: state.result);
           case SearchStatus.failure:
             return BuildError(
-              errorText: state.errorText ?? S.of(context).errorUnknown,
+              errorText: state.errorText!,
             );
           case SearchStatus.loading:
             return const BuildLoadingIndicator();
@@ -50,79 +52,95 @@ class BuildSearchView extends StatelessWidget {
         minimum: EdgeInsets.symmetric(
           horizontal: isMobile ? 12.0 : mediaQuery.size.longestSide / 10,
         ),
-        child: Stack(
-          children: [
-            if (kIsWeb)
-              DropzoneView(
-                operation: DragOperation.move,
-                onCreated: context.read<SearchCubit>().setFileController,
-                onDrop: (file) async =>
-                    await context.read<SearchCubit>().searchByFile(file),
-                onError: print,
-              ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  S.of(context).newSearch,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: 24.0),
+        child: Focus(
+          autofocus: true,
+          canRequestFocus: true,
+          onKey: (_, event) {
+            if (event.isControlPressed &&
+                event.physicalKey == PhysicalKeyboardKey.keyV &&
+                !event.repeat) {
+              context.read<SearchCubit>().onPaste(
+                    mediaBytes: Pasteboard.image,
+                    text: Pasteboard.text,
+                  );
+            }
+            return KeyEventResult.ignored;
+          },
+          child: Stack(
+            children: [
+              if (kIsWeb)
+                DropzoneView(
+                  operation: DragOperation.move,
+                  onCreated: context.read<SearchCubit>().setFileController,
+                  onDrop: (file) async =>
+                      await context.read<SearchCubit>().searchByFile(file),
+                  onError: print,
                 ),
-                const SizedBox(
-                  height: 8.0,
-                ),
-                Text(
-                  S.of(context).newSearchHint,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(fontSize: 18.0),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(28.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: TextFormField(
-                      controller: context.read<SearchCubit>().controller,
-                      textInputAction: TextInputAction.next,
-                      style: Theme.of(context).textTheme.headline4,
-                      decoration: InputDecoration(
-                        labelText: S.of(context).enterImageUrl,
-                        helperText: S.of(context).enterImageUrlHint,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    S.of(context).newSearch,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 24.0),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Text(
+                    S.of(context).newSearchHint,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontSize: 18.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: TextFormField(
+                        controller: context.read<SearchCubit>().textController,
+                        textInputAction: TextInputAction.next,
+                        style: Theme.of(context).textTheme.headline4,
+                        decoration: InputDecoration(
+                          labelText: S.of(context).enterImageUrl,
+                          helperText: S.of(context).enterImageUrlHint,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.center,
-                  children: [
-                    if (kIsWeb) SizedBox(
-                      height: 42.0,
-                      width: mediaQuery.size.width / 4,
-                      child: OutlinedButton(
-                        onPressed: () async =>
-                            await context.read<SearchCubit>().selectFile(),
-                        child: Text(S.of(context).selectFileButtonText),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    children: [
+                      if (kIsWeb)
+                        SizedBox(
+                          height: 42.0,
+                          width: mediaQuery.size.width / 4,
+                          child: OutlinedButton(
+                            onPressed: () async =>
+                                await context.read<SearchCubit>().selectFile(),
+                            child: Text(S.of(context).selectFileButtonText),
+                          ),
+                        ),
+                      SizedBox(
+                        height: 42.0,
+                        width: mediaQuery.size.width / 4,
+                        child: ElevatedButton(
+                          onPressed: () =>
+                              context.read<SearchCubit>().searchByUrl(),
+                          child: Text(S.of(context).searchButtonText),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 42.0,
-                      width: mediaQuery.size.width / 4,
-                      child: ElevatedButton(
-                        onPressed: () =>
-                            context.read<SearchCubit>().searchByUrl(),
-                        child: Text(S.of(context).searchButtonText),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

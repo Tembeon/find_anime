@@ -30,6 +30,6 @@ Try it:
 - [X] Add search via file drop
 - [ ] Add ability to choose app language
 - [ ] Add ability to choose app theme
-- [ ] Maybe: search via Ctrl + V image
+- [X] Maybe: search via Ctrl + V image
 - [ ] Maybe: get image via mobile sharing dialog
 - [ ] Maybe: compile on Windows, Android, Linux

@@ -32,6 +32,8 @@ dependencies:
   waterfall_flow: ^3.0.2
   intl: ^0.17.0
   flutter_dropzone: ^3.0.5
+  pasteboard: ^0.2.0
+  mime: ^1.0.2
 
   tracemoe_repository:
     path: packages/tracemoe_repository

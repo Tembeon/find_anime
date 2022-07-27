@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "newSearch": "New search",
   "@newSearch": {
     "description": "Title on the search page"

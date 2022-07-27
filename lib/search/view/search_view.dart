@@ -83,6 +83,7 @@ class BuildSearchView extends StatelessWidget {
                     text: Pasteboard.text,
                   );
             }
+
             return KeyEventResult.ignored;
           },
           child: Stack(

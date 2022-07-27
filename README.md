@@ -28,8 +28,8 @@ Try it:
 
 ### TO-DO
 - [X] Add search via file drop
-- [ ] Add ability to choose app language
-- [ ] Add ability to choose app theme
+- [X] Add ability to choose app language
+- [X] Add ability to choose app theme
 - [X] Maybe: search via Ctrl + V image
 - [ ] Maybe: get image via mobile sharing dialog
 - [ ] Maybe: compile on Windows, Android, Linux

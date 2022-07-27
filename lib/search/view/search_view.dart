@@ -8,6 +8,8 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
+import '../../app/cubit/language_cubit.dart';
+import '../../app/cubit/theme_cubit.dart';
 import '../../generated/l10n.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
@@ -48,6 +50,23 @@ class BuildSearchView extends StatelessWidget {
     bool isMobile = mediaQuery.size.width < 600;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            tooltip: 'Change app language',
+            onPressed: () => context.read<LanguageCubit>().toggleAppLanguage(),
+            icon: const Icon(Icons.language_outlined),
+          ),
+          const SizedBox(
+            width: 24.0,
+          ),
+          IconButton(
+            tooltip: 'Change app theme',
+            onPressed: () => context.read<ThemeCubit>().changeAppTheme(),
+            icon: const Icon(Icons.brightness_6_outlined),
+          ),
+        ],
+      ),
       body: SafeArea(
         minimum: EdgeInsets.symmetric(
           horizontal: isMobile ? 12.0 : mediaQuery.size.longestSide / 10,

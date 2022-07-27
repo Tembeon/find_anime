@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../../theme.dart';
 import '../../generated/l10n.dart';
+import '../cubit/language_cubit.dart';
+import '../cubit/theme_cubit.dart';
 import '../utils/app_router.dart';
 
-class FindAnimeApp extends StatefulWidget {
+class FindAnimeApp extends StatelessWidget {
   const FindAnimeApp({Key? key}) : super(key: key);
 
   @override
-  State<FindAnimeApp> createState() => _FindAnimeAppState();
-}
-
-class _FindAnimeAppState extends State<FindAnimeApp> {
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'FindAnime',
-      routerDelegate: AppRouter.beamerDelegate,
-      routeInformationParser: AppRouter.beamerParser,
-      theme: themeData(),
-      darkTheme: darkThemeData(),
-      supportedLocales: const AppLocalizationDelegate().supportedLocales,
-      localizationsDelegates: const [
-        AppLocalizationDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => ThemeCubit()),
+        BlocProvider(create: (_) => LanguageCubit()),
       ],
+      child: Builder(
+        builder: (context) {
+          return MaterialApp.router(
+            title: 'FindAnime',
+            routerDelegate: AppRouter.beamerDelegate,
+            routeInformationParser: AppRouter.beamerParser,
+            theme: themeData(),
+            darkTheme: darkThemeData(),
+            themeMode: context.watch<ThemeCubit>().appTheme,
+            locale: context.watch<LanguageCubit>().getLocale,
+            supportedLocales: const AppLocalizationDelegate().supportedLocales,
+            localizationsDelegates: const [
+              AppLocalizationDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+          );
+        },
+      ),
     );
   }
 }

@@ -58,7 +58,8 @@ class SearchCubit extends Cubit<SearchState> {
             ? _makeSearchByFile(
                 imageBytes,
                 lookupMimeType('', headerBytes: imageBytes) ??
-                    'application/octet-stream')
+                    'application/octet-stream',
+              )
             : _makeSearchByUrl(copiedText!);
       }
       // spam protection from pasting content

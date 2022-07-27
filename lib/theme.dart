@@ -47,7 +47,8 @@ ThemeData themeData() {
       indicatorSize: TabBarIndicatorSize.label,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: secondLevelColor,
+      elevation: 0.0,
+      backgroundColor: backgroundColor,
       foregroundColor: highContrast,
     ),
     cardTheme: const CardTheme(margin: EdgeInsets.zero),
@@ -223,7 +224,8 @@ ThemeData darkThemeData() {
       indicatorSize: TabBarIndicatorSize.label,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: secondLevelColor,
+      elevation: 0.0,
+      backgroundColor: backgroundColor,
       foregroundColor: highContrast,
     ),
     cardTheme: const CardTheme(margin: EdgeInsets.zero),

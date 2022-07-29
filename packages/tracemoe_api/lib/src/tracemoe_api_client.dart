@@ -27,6 +27,10 @@ class SearchQuotaDepletedFailure implements Exception {}
 class InvalidImageUrlFailure implements Exception {}
 
 class TraceMoeApiClient {
+  TraceMoeApiClient({http.Client? httpClient})
+      : _httpClient = httpClient ?? http.Client();
+  final http.Client _httpClient;
+
   static const _baseUrl = 'https://api.trace.moe/search?anilistInfo';
 
   /// Send GET method to get result from TraceMoe with given image [url].
@@ -34,16 +38,24 @@ class TraceMoeApiClient {
   /// Will throw exceptions according to the API documentation:
   /// https://soruly.github.io/trace.moe-api/#/docs?id=error-codes
   Future<SearchResultModel> getResultByImageUrl(String url) async {
-    final response = await http.get(Uri.parse('$_baseUrl&url=$url'));
+    final response = await _httpClient.get(Uri.parse('$_baseUrl&url=$url'));
 
     return _getSearchModel(response);
   }
 
+  /// Send POST method to get result from TraceMoe with given media, coded in [bytes].
+  /// You need to specify [mimeType] of file coded in [bytes].
+  ///
+  /// Media can be an **image/\***, **video/\*** or **gif**.
+  /// If a different file type is sent, [InvalidImageUrlFailure] will be thrown.
+  ///
+  /// Will throw exceptions according to the API documentation:
+  /// https://soruly.github.io/trace.moe-api/#/docs?id=error-codes
   Future<SearchResultModel> getResultByFile(
     Uint8List bytes, {
     required String mimeType,
   }) async {
-    final response = await http.post(
+    final response = await _httpClient.post(
       Uri.parse(_baseUrl),
       headers: {
         'Content-Type': mimeType,
@@ -54,6 +66,11 @@ class TraceMoeApiClient {
     return _getSearchModel(response);
   }
 
+  /// Processes the response and returns [SearchResultModel].
+  ///
+  /// If response is not successful, will throw exception.
+  ///
+  /// https://soruly.github.io/trace.moe-api/#/docs?id=error-codes
   SearchResultModel _getSearchModel(http.Response response) {
     switch (response.statusCode) {
       case 200:

@@ -24,7 +24,7 @@ dependencies:
   http: ^0.13.4
   duration: ^3.0.11
   url_launcher: ^6.1.5
-  file_picker: ^4.6.1
+  file_picker: ^5.0.0
   json_annotation: ^4.6.0
   video_player: ^2.4.5
   breakpoint: ^1.2.0
@@ -47,7 +47,7 @@ dev_dependencies:
   freezed: ^2.1.0+1
   flutter_lints: ^2.0.1
   bloc_test: ^9.0.3
-  dart_code_metrics: ^4.16.0
+  dart_code_metrics: ^4.17.0
   json_serializable: ^6.3.1
   build_web_compilers: ^3.2.4
 

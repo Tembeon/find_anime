@@ -1,7 +1,7 @@
 name: tracemoe_api
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: 'https://github.com/Tembeon/find_anime/tree/master/packages/tracemoe_api'
 publish_to: none
 
 environment:
@@ -23,5 +23,7 @@ dev_dependencies:
   build_runner: ^2.2.0
   freezed: ^2.1.0+1
   json_serializable: ^6.3.1
+  mocktail: ^0.3.0
+  coverage: ^1.5.0
 
 flutter:

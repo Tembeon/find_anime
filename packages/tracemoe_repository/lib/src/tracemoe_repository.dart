@@ -11,6 +11,12 @@ class TraceMoeRepository {
 
   final TraceMoeApiClient _apiClient;
 
+  /// Returns simplified processed API result of search via image in
+  /// list of [Resul] models.
+  ///
+  ///
+  /// Will throw exceptions according to the API documentation:
+  /// https://soruly.github.io/trace.moe-api/#/docs?id=error-codes
   Future<List<Result>> getResultByImageUrl(String url) async {
     try {
       final response = await _apiClient.getResultByImageUrl(url);
@@ -20,6 +26,14 @@ class TraceMoeRepository {
     }
   }
 
+  /// Returns simplified processed API result of search via file in
+  /// list of [Resul] models.
+  ///
+  /// Media can be an **image/\***, **video/\*** or **gif**.
+  /// If a different file type is sent, [InvalidImageUrlFailure] will be thrown.
+  ///
+  /// Will throw exceptions according to the API documentation:
+  /// https://soruly.github.io/trace.moe-api/#/docs?id=error-codes
   Future<List<Result>> getResultByFile(
     Uint8List bytes, {
     required String mimeType,
@@ -35,6 +49,9 @@ class TraceMoeRepository {
     }
   }
 
+  /// Processes raw API result and returns list of [Result].
+  ///
+  /// Will throw [EmptyResultFailure] if result was empty.
   List<Result> _getResultList(SearchResultModel model) {
     if (model.result != null && model.result!.isNotEmpty) {
       List<Result> resultList = [];

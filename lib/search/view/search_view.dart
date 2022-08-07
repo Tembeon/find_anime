@@ -23,7 +23,7 @@ class SearchView extends StatelessWidget {
       builder: (context, state) {
         switch (state.status) {
           case SearchStatus.initial:
-            return const BuildSearchView();
+            return const InitialSearchView();
           case SearchStatus.success:
             return ResultList(result: state.result);
           case SearchStatus.failure:
@@ -39,8 +39,8 @@ class SearchView extends StatelessWidget {
 }
 
 /// View with search view, initial view
-class BuildSearchView extends StatelessWidget {
-  const BuildSearchView({
+class InitialSearchView extends StatelessWidget {
+  const InitialSearchView({
     Key? key,
   }) : super(key: key);
 

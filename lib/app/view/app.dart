@@ -9,14 +9,21 @@ import '../cubit/theme_cubit.dart';
 import '../utils/app_router.dart';
 
 class FindAnimeApp extends StatelessWidget {
-  const FindAnimeApp({Key? key}) : super(key: key);
+  const FindAnimeApp({
+    Key? key,
+    this.themeCubit,
+    this.languageCubit,
+  }) : super(key: key);
+
+  final ThemeCubit? themeCubit;
+  final LanguageCubit? languageCubit;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => ThemeCubit()),
-        BlocProvider(create: (_) => LanguageCubit()),
+        BlocProvider(create: (_) => themeCubit ?? ThemeCubit()),
+        BlocProvider(create: (_) => languageCubit ?? LanguageCubit()),
       ],
       child: Builder(
         builder: (context) {

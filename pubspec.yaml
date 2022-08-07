@@ -50,6 +50,8 @@ dev_dependencies:
   dart_code_metrics: ^4.17.0
   json_serializable: ^6.3.1
   build_web_compilers: ^3.2.4
+  mocktail: ^0.3.0
+  coverage: ^1.5.0
 
 
 # The following section is specific to Flutter.

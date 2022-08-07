@@ -59,7 +59,9 @@ class TraceMoeRepository {
       for (ResultModel result in model.result!) {
         resultList.add(
           Result(
-            similarity: result.similarity,
+            similarity: result.similarity == null
+                ? ''
+                : (result.similarity! * 100).toStringAsFixed(1),
             episode: result.episode ?? 0,
             moment: result.from ?? 0,
             video: result.video!,

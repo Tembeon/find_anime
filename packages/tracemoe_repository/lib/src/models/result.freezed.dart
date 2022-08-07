@@ -16,8 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Result {
-  num? get episode => throw _privateConstructorUsedError;
-  num? get similarity => throw _privateConstructorUsedError;
+  num get episode => throw _privateConstructorUsedError;
+  String get similarity => throw _privateConstructorUsedError;
   num get moment => throw _privateConstructorUsedError;
   String get video => throw _privateConstructorUsedError;
   int get idMal => throw _privateConstructorUsedError;
@@ -34,8 +34,8 @@ abstract class $ResultCopyWith<$Res> {
   factory $ResultCopyWith(Result value, $Res Function(Result) then) =
       _$ResultCopyWithImpl<$Res>;
   $Res call(
-      {num? episode,
-      num? similarity,
+      {num episode,
+      String similarity,
       num moment,
       String video,
       int idMal,
@@ -67,11 +67,11 @@ class _$ResultCopyWithImpl<$Res> implements $ResultCopyWith<$Res> {
       episode: episode == freezed
           ? _value.episode
           : episode // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as num,
       similarity: similarity == freezed
           ? _value.similarity
           : similarity // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String,
       moment: moment == freezed
           ? _value.moment
           : moment // ignore: cast_nullable_to_non_nullable
@@ -106,8 +106,8 @@ abstract class _$$_ResultCopyWith<$Res> implements $ResultCopyWith<$Res> {
       __$$_ResultCopyWithImpl<$Res>;
   @override
   $Res call(
-      {num? episode,
-      num? similarity,
+      {num episode,
+      String similarity,
       num moment,
       String video,
       int idMal,
@@ -140,11 +140,11 @@ class __$$_ResultCopyWithImpl<$Res> extends _$ResultCopyWithImpl<$Res>
       episode: episode == freezed
           ? _value.episode
           : episode // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as num,
       similarity: similarity == freezed
           ? _value.similarity
           : similarity // ignore: cast_nullable_to_non_nullable
-              as num?,
+              as String,
       moment: moment == freezed
           ? _value.moment
           : moment // ignore: cast_nullable_to_non_nullable
@@ -187,9 +187,9 @@ class _$_Result implements _Result {
       required this.japaneseName});
 
   @override
-  final num? episode;
+  final num episode;
   @override
-  final num? similarity;
+  final String similarity;
   @override
   final num moment;
   @override
@@ -246,8 +246,8 @@ class _$_Result implements _Result {
 
 abstract class _Result implements Result {
   const factory _Result(
-      {required final num? episode,
-      required final num? similarity,
+      {required final num episode,
+      required final String similarity,
       required final num moment,
       required final String video,
       required final int idMal,
@@ -256,9 +256,9 @@ abstract class _Result implements Result {
       required final String? japaneseName}) = _$_Result;
 
   @override
-  num? get episode;
+  num get episode;
   @override
-  num? get similarity;
+  String get similarity;
   @override
   num get moment;
   @override

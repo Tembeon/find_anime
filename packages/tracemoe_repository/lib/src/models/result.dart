@@ -5,8 +5,8 @@ part 'result.freezed.dart';
 @freezed
 class Result with _$Result {
   const factory Result({
-    required num? episode,
-    required num? similarity,
+    required num episode,
+    required String similarity,
     required num moment,
     required String video,
     required int idMal,

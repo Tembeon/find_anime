@@ -35,57 +35,41 @@ class ResultListItem extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Padding(
-              padding: const EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 horizontal: 12.0,
                 vertical: 20.0,
               ),
-              child: ResultTitleBlock(
-                romaji: result.romajiName,
-                japanese: result.japaneseName,
-              ),
+              child: ResultTitleBlock(),
             ),
-            ResultMediaViewer(
-              mediaUrl: result.video,
+            ResultMediaViewer(),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: ResultInfoText(),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ResultInfoText(
-                similarity: result.similarity!,
-                adultOnly: result.adultOnly,
-              ),
+              padding: EdgeInsets.all(16.0),
+              child: ResultEpisodeInfo(),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ResultEpisodeInfo(
-                moment: result.moment.toInt(),
-                episode: result.episode!.toInt(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ResultButtonBar(
-                idMal: result.idMal,
-                name: result.romajiName ?? result.japaneseName ?? '',
-              ),
+              padding: EdgeInsets.all(16.0),
+              child: ResultButtonBar(),
             ),
           ],
         ),
       ),
     );
   }
+
+  static Result getResultOf(BuildContext context) =>
+      context.findAncestorWidgetOfExactType<ResultListItem>()!.result;
 }
 
 class ResultButtonBar extends StatelessWidget {
   const ResultButtonBar({
     Key? key,
-    required this.idMal,
-    required this.name,
   }) : super(key: key);
-
-  final int idMal;
-  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +79,7 @@ class ResultButtonBar extends StatelessWidget {
           height: 42.0,
           child: OutlinedButton(
             onPressed: () => launchUrl(Uri.parse(
-              'https://anilist.co/anime/$idMal',
+              'https://anilist.co/anime/${ResultListItem.getResultOf(context).idMal}',
             )),
             child: Text(S.of(context).viewInAnilist),
           ),
@@ -105,7 +89,11 @@ class ResultButtonBar extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               Clipboard.setData(
-                ClipboardData(text: name),
+                ClipboardData(
+                  text: ResultListItem.getResultOf(context).romajiName ??
+                      ResultListItem.getResultOf(context).japaneseName ??
+                      '',
+                ),
               );
 
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -124,22 +112,19 @@ class ResultButtonBar extends StatelessWidget {
 class ResultTitleBlock extends StatelessWidget {
   const ResultTitleBlock({
     Key? key,
-    this.romaji,
-    this.japanese,
   }) : super(key: key);
-
-  final String? romaji;
-  final String? japanese;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: TextAvatar(
         shape: Shape.Circular,
-        text: romaji ?? S.of(context).noRomajiName,
+        text: ResultListItem.getResultOf(context).romajiName ??
+            S.of(context).noRomajiName,
       ),
       title: SelectableText(
-        romaji ?? S.of(context).noRomajiName,
+        ResultListItem.getResultOf(context).romajiName ??
+            S.of(context).noRomajiName,
         style: TextStyle(
           fontSize: 24.0,
           fontFamily: 'Roboto',
@@ -147,7 +132,8 @@ class ResultTitleBlock extends StatelessWidget {
         ),
       ),
       subtitle: SelectableText(
-        japanese ?? S.of(context).noJapaneseName,
+        ResultListItem.getResultOf(context).japaneseName ??
+            S.of(context).noJapaneseName,
         style: TextStyle(
           fontSize: 14.0,
           fontFamily: 'Roboto',
@@ -161,10 +147,7 @@ class ResultTitleBlock extends StatelessWidget {
 class ResultMediaViewer extends StatefulWidget {
   const ResultMediaViewer({
     Key? key,
-    required this.mediaUrl,
   }) : super(key: key);
-
-  final String mediaUrl;
 
   @override
   State<ResultMediaViewer> createState() => _ResultMediaViewerState();
@@ -176,7 +159,7 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(
-      widget.mediaUrl,
+      ResultListItem.getResultOf(context).video,
     )..initialize().then((value) {
         _controller.setVolume(0.0).then((_) => _controller.pause());
         setState;
@@ -232,12 +215,7 @@ class _ResultMediaViewerState extends State<ResultMediaViewer> {
 class ResultInfoText extends StatelessWidget {
   const ResultInfoText({
     Key? key,
-    required this.similarity,
-    required this.adultOnly,
   }) : super(key: key);
-
-  final num similarity;
-  final bool adultOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +223,9 @@ class ResultInfoText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          S.of(context).similarityText((similarity * 100).toStringAsFixed(1)),
+          S
+              .of(context)
+              .similarityText(ResultListItem.getResultOf(context).similarity),
           style: TextStyle(
             fontSize: 22.0,
             fontFamily: 'Roboto',
@@ -255,7 +235,7 @@ class ResultInfoText extends StatelessWidget {
         const SizedBox(
           height: 8.0,
         ),
-        if (adultOnly)
+        if (ResultListItem.getResultOf(context).adultOnly)
           Text(
             S.of(context).adultOnly,
             style: TextStyle(
@@ -272,11 +252,7 @@ class ResultInfoText extends StatelessWidget {
 class ResultEpisodeInfo extends StatelessWidget {
   const ResultEpisodeInfo({
     Key? key,
-    required this.moment,
-    required this.episode,
   }) : super(key: key);
-  final int moment;
-  final int episode;
 
   @override
   Widget build(BuildContext context) {
@@ -284,9 +260,11 @@ class ResultEpisodeInfo extends StatelessWidget {
       children: [
         Text(
           S.of(context).episodeText(
-                episode,
+                ResultListItem.getResultOf(context).episode.toInt(),
                 prettyDuration(
-                  Duration(seconds: moment),
+                  Duration(
+                    seconds: ResultListItem.getResultOf(context).moment.toInt(),
+                  ),
                   abbreviated: true,
                 ),
               ),

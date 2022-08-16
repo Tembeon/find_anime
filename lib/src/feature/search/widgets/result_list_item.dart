@@ -7,7 +7,8 @@ import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../generated/l10n.dart';
+import '../../../core/generated/localization/l10n.dart';
+
 
 class ResultListItem extends StatelessWidget {
   const ResultListItem({

@@ -2,7 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../generated/l10n.dart';
+import '../../src/core/generated/localization/l10n.dart';
+
 
 part 'language_state.dart';
 

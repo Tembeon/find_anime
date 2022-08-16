@@ -8,9 +8,10 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
-import '../../app/cubit/language_cubit.dart';
-import '../../app/cubit/theme_cubit.dart';
-import '../../generated/l10n.dart';
+import '/app/cubit/language_cubit.dart';
+import '/app/cubit/theme_cubit.dart';
+import '../../../core/generated/localization/l10n.dart';
+import '../bloc/dropzone_cubit.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
 
@@ -19,30 +20,44 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchCubit, SearchState>(
+    return BlocConsumer<SearchBloc, SearchState>(
       builder: (context, state) {
-        switch (state.status) {
-          case SearchStatus.initial:
-            return const InitialSearchView();
-          case SearchStatus.success:
-            return ResultList(result: state.result);
-          case SearchStatus.failure:
-            return BuildError(
-              errorText: state.errorText!,
+        return state.when(
+          initial: () => InitialSearchView(),
+          loading: () => const BuildLoadingIndicator(),
+          failure: (message) => BuildError(errorText: message),
+          showingResult: (result) => ResultList(result: result),
+          userInputFailure: (_) => InitialSearchView(),
+        );
+      },
+      listener: (context, state) {
+        state.maybeWhen(
+          userInputFailure: (message) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+              ),
             );
-          case SearchStatus.loading:
-            return const BuildLoadingIndicator();
-        }
+          },
+          orElse: () {},
+        );
       },
     );
   }
 }
 
 /// View with search view, initial view
-class InitialSearchView extends StatelessWidget {
+class InitialSearchView extends StatefulWidget {
   const InitialSearchView({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<InitialSearchView> createState() => _InitialSearchViewState();
+}
+
+class _InitialSearchViewState extends State<InitialSearchView> {
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +93,11 @@ class InitialSearchView extends StatelessWidget {
             if (event.isControlPressed &&
                 event.physicalKey == PhysicalKeyboardKey.keyV &&
                 !event.repeat) {
-              context.read<SearchCubit>().onPaste(
-                    mediaBytes: Pasteboard.image,
-                    text: Pasteboard.text,
+              context.read<SearchBloc>().add(
+                    SearchEvent.pastedContent(
+                      Pasteboard.image,
+                      Pasteboard.text,
+                    ),
                   );
             }
 
@@ -91,9 +108,10 @@ class InitialSearchView extends StatelessWidget {
               if (kIsWeb)
                 DropzoneView(
                   operation: DragOperation.move,
-                  onCreated: context.read<SearchCubit>().setFileController,
-                  onDrop: (file) async =>
-                      await context.read<SearchCubit>().searchByFile(file),
+                  onCreated: context.read<DropZoneCubit>().setController,
+                  onDrop: (file) => context
+                      .read<SearchBloc>()
+                      .add(SearchEvent.searchViaFile(file)),
                   onError: print,
                 ),
               Column(
@@ -123,7 +141,7 @@ class InitialSearchView extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: TextFormField(
-                        controller: context.read<SearchCubit>().textController,
+                        controller: _textEditingController,
                         textInputAction: TextInputAction.next,
                         style: Theme.of(context).textTheme.headline4,
                         decoration: InputDecoration(
@@ -141,8 +159,22 @@ class InitialSearchView extends StatelessWidget {
                           height: 42.0,
                           width: mediaQuery.size.width / 4,
                           child: OutlinedButton(
-                            onPressed: () async =>
-                                await context.read<SearchCubit>().selectFile(),
+                            onPressed: () async {
+                              // awaiting to pick up file
+                              final htmlFile = (await context
+                                      .read<DropZoneCubit>()
+                                      .state
+                                      .getControllerOrNull!
+                                      .pickFiles())
+                                  .first;
+                              if (!mounted) return; // widget is not at tree
+                              context.read<SearchBloc>().add(
+                                    SearchEvent.searchViaFile((await context
+                                        .read<DropZoneCubit>()
+                                        .state
+                                        .convertFile(htmlFile))!),
+                                  );
+                            },
                             child: Text(S.of(context).selectFileButtonText),
                           ),
                         ),
@@ -150,8 +182,11 @@ class InitialSearchView extends StatelessWidget {
                         height: 42.0,
                         width: mediaQuery.size.width / 4,
                         child: ElevatedButton(
-                          onPressed: () =>
-                              context.read<SearchCubit>().searchByUrl(),
+                          onPressed: () => context.read<SearchBloc>().add(
+                                SearchEvent.searchViaDirectUrl(
+                                  _textEditingController.value.text,
+                                ),
+                              ),
                           child: Text(S.of(context).searchButtonText),
                         ),
                       ),
@@ -202,7 +237,9 @@ class BuildError extends StatelessWidget {
               child: SizedBox(
                 height: 42.0,
                 child: ElevatedButton(
-                  onPressed: () => context.read<SearchCubit>().resetState(),
+                  onPressed: () => context
+                      .read<SearchBloc>()
+                      .add(const SearchEvent.openSearch()),
                   child: Text(S.of(context).openSearchButton),
                 ),
               ),
@@ -250,7 +287,8 @@ class ResultList extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () => context.read<SearchCubit>().resetState(),
+            onPressed: () =>
+                context.read<SearchBloc>().add(const SearchEvent.openSearch()),
             label: Text(S.of(context).openSearchButton),
             icon: const Icon(Icons.search_outlined),
           ),

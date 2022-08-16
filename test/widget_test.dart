@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:find_anime/app/cubit/language_cubit.dart';
 import 'package:find_anime/app/cubit/theme_cubit.dart';
-import 'package:find_anime/app/view/app.dart';
+import 'package:find_anime/common/widget/app.dart';
 import 'package:find_anime/generated/l10n.dart';
 import 'package:find_anime/search/search.dart';
 import 'package:find_anime/search/view/search_view.dart';
@@ -164,7 +164,7 @@ void main() {
         when(() => searchCubit.state).thenReturn(const SearchState());
 
         await tester.pumpWidget(FindAnimeApp(
-          themeCubit: themeCubit,
+          _theme: themeCubit,
         ));
 
         await tester.pump();
@@ -184,7 +184,7 @@ void main() {
         when(() => searchCubit.state).thenReturn(const SearchState());
 
         await tester.pumpWidget(FindAnimeApp(
-          languageCubit: languageCubit,
+          _languageCubit: languageCubit,
         ));
 
         await tester.pump();

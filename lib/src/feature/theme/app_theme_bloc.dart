@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart'; // used only for ThemeMode
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -38,6 +37,9 @@ class AppThemeEvent with _$AppThemeEvent {
 
   /// User changed app theme to matching system
   const factory AppThemeEvent.changedToSystem() = _ChangedToSystemAppThemeEvent;
+
+  /// User toggle theme
+  const factory AppThemeEvent.themeToggled() = _ThemeToggledAppThemeEvent;
 }
 
 class AppThemeBloc extends Bloc<AppThemeEvent, AppThemeState> {
@@ -53,6 +55,7 @@ class AppThemeBloc extends Bloc<AppThemeEvent, AppThemeState> {
         changedToDark: (event) => _changedToDark(event, emit),
         changedToLight: (event) => _changedToLight(event, emit),
         changedToSystem: (event) => _changedToSystem(event, emit),
+        themeToggled: (event) => _themeToggled(event, emit),
       ),
     );
   }
@@ -74,4 +77,24 @@ class AppThemeBloc extends Bloc<AppThemeEvent, AppThemeState> {
     Emitter<AppThemeState> emitter,
   ) async =>
       emitter(const AppThemeState.system());
+
+  Future<void> _themeToggled(
+    _ThemeToggledAppThemeEvent event,
+    Emitter<AppThemeState> emitter,
+  ) async {
+    state.when(
+      system: () => emitter(_isDeviceInDarkMode
+          ? const AppThemeState.light()
+          : const AppThemeState.dark()),
+      light: () => emitter(const AppThemeState.dark()),
+      dark: () => emitter(const AppThemeState.light()),
+    );
+  }
+
+  bool get _isDeviceInDarkMode {
+    Brightness deviceBrightness =
+        SchedulerBinding.instance.window.platformBrightness;
+
+    return deviceBrightness == Brightness.dark;
+  }
 }

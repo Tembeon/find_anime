@@ -490,20 +490,22 @@ abstract class _SuccessfulAppLanguageState extends AppLanguageState {
 
 /// @nodoc
 mixin _$AppLanguageEvent {
-  Locale get newLocale => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Locale newLocale) changeToLocale,
+    required TResult Function() languageToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -511,22 +513,22 @@ mixin _$AppLanguageEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_ChangeToLocaleAppLanguageEvent value)
         changeToLocale,
+    required TResult Function(_LanguageToggledAppLanguageEvent value)
+        languageToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $AppLanguageEventCopyWith<AppLanguageEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -535,7 +537,6 @@ abstract class $AppLanguageEventCopyWith<$Res> {
   factory $AppLanguageEventCopyWith(
           AppLanguageEvent value, $Res Function(AppLanguageEvent) then) =
       _$AppLanguageEventCopyWithImpl<$Res>;
-  $Res call({Locale newLocale});
 }
 
 /// @nodoc
@@ -546,28 +547,14 @@ class _$AppLanguageEventCopyWithImpl<$Res>
   final AppLanguageEvent _value;
   // ignore: unused_field
   final $Res Function(AppLanguageEvent) _then;
-
-  @override
-  $Res call({
-    Object? newLocale = freezed,
-  }) {
-    return _then(_value.copyWith(
-      newLocale: newLocale == freezed
-          ? _value.newLocale
-          : newLocale // ignore: cast_nullable_to_non_nullable
-              as Locale,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$$_ChangeToLocaleAppLanguageEventCopyWith<$Res>
-    implements $AppLanguageEventCopyWith<$Res> {
+abstract class _$$_ChangeToLocaleAppLanguageEventCopyWith<$Res> {
   factory _$$_ChangeToLocaleAppLanguageEventCopyWith(
           _$_ChangeToLocaleAppLanguageEvent value,
           $Res Function(_$_ChangeToLocaleAppLanguageEvent) then) =
       __$$_ChangeToLocaleAppLanguageEventCopyWithImpl<$Res>;
-  @override
   $Res call({Locale newLocale});
 }
 
@@ -633,6 +620,7 @@ class _$_ChangeToLocaleAppLanguageEvent
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Locale newLocale) changeToLocale,
+    required TResult Function() languageToggled,
   }) {
     return changeToLocale(newLocale);
   }
@@ -641,6 +629,7 @@ class _$_ChangeToLocaleAppLanguageEvent
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
   }) {
     return changeToLocale?.call(newLocale);
   }
@@ -649,6 +638,7 @@ class _$_ChangeToLocaleAppLanguageEvent
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
     required TResult orElse(),
   }) {
     if (changeToLocale != null) {
@@ -662,6 +652,8 @@ class _$_ChangeToLocaleAppLanguageEvent
   TResult map<TResult extends Object?>({
     required TResult Function(_ChangeToLocaleAppLanguageEvent value)
         changeToLocale,
+    required TResult Function(_LanguageToggledAppLanguageEvent value)
+        languageToggled,
   }) {
     return changeToLocale(this);
   }
@@ -670,6 +662,7 @@ class _$_ChangeToLocaleAppLanguageEvent
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
   }) {
     return changeToLocale?.call(this);
   }
@@ -678,6 +671,7 @@ class _$_ChangeToLocaleAppLanguageEvent
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
     required TResult orElse(),
   }) {
     if (changeToLocale != null) {
@@ -692,10 +686,122 @@ abstract class _ChangeToLocaleAppLanguageEvent extends AppLanguageEvent {
       _$_ChangeToLocaleAppLanguageEvent;
   const _ChangeToLocaleAppLanguageEvent._() : super._();
 
-  @override
   Locale get newLocale;
-  @override
   @JsonKey(ignore: true)
   _$$_ChangeToLocaleAppLanguageEventCopyWith<_$_ChangeToLocaleAppLanguageEvent>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_LanguageToggledAppLanguageEventCopyWith<$Res> {
+  factory _$$_LanguageToggledAppLanguageEventCopyWith(
+          _$_LanguageToggledAppLanguageEvent value,
+          $Res Function(_$_LanguageToggledAppLanguageEvent) then) =
+      __$$_LanguageToggledAppLanguageEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_LanguageToggledAppLanguageEventCopyWithImpl<$Res>
+    extends _$AppLanguageEventCopyWithImpl<$Res>
+    implements _$$_LanguageToggledAppLanguageEventCopyWith<$Res> {
+  __$$_LanguageToggledAppLanguageEventCopyWithImpl(
+      _$_LanguageToggledAppLanguageEvent _value,
+      $Res Function(_$_LanguageToggledAppLanguageEvent) _then)
+      : super(_value, (v) => _then(v as _$_LanguageToggledAppLanguageEvent));
+
+  @override
+  _$_LanguageToggledAppLanguageEvent get _value =>
+      super._value as _$_LanguageToggledAppLanguageEvent;
+}
+
+/// @nodoc
+
+class _$_LanguageToggledAppLanguageEvent
+    extends _LanguageToggledAppLanguageEvent {
+  const _$_LanguageToggledAppLanguageEvent() : super._();
+
+  @override
+  String toString() {
+    return 'AppLanguageEvent.languageToggled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LanguageToggledAppLanguageEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Locale newLocale) changeToLocale,
+    required TResult Function() languageToggled,
+  }) {
+    return languageToggled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
+  }) {
+    return languageToggled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Locale newLocale)? changeToLocale,
+    TResult Function()? languageToggled,
+    required TResult orElse(),
+  }) {
+    if (languageToggled != null) {
+      return languageToggled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChangeToLocaleAppLanguageEvent value)
+        changeToLocale,
+    required TResult Function(_LanguageToggledAppLanguageEvent value)
+        languageToggled,
+  }) {
+    return languageToggled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
+  }) {
+    return languageToggled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChangeToLocaleAppLanguageEvent value)? changeToLocale,
+    TResult Function(_LanguageToggledAppLanguageEvent value)? languageToggled,
+    required TResult orElse(),
+  }) {
+    if (languageToggled != null) {
+      return languageToggled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LanguageToggledAppLanguageEvent extends AppLanguageEvent {
+  const factory _LanguageToggledAppLanguageEvent() =
+      _$_LanguageToggledAppLanguageEvent;
+  const _LanguageToggledAppLanguageEvent._() : super._();
 }

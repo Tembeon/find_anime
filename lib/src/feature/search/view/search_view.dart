@@ -8,9 +8,9 @@ import 'package:pasteboard/pasteboard.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
-import '/app/cubit/language_cubit.dart';
-import '/app/cubit/theme_cubit.dart';
 import '../../../core/generated/localization/l10n.dart';
+import '../../localization/app_language_bloc.dart';
+import '../../theme/app_theme_bloc.dart';
 import '../bloc/dropzone_cubit.dart';
 import '../search.dart';
 import '../widgets/result_list_item.dart';
@@ -23,11 +23,11 @@ class SearchView extends StatelessWidget {
     return BlocConsumer<SearchBloc, SearchState>(
       builder: (context, state) {
         return state.when(
-          initial: () => InitialSearchView(),
+          initial: () => const InitialSearchView(),
           loading: () => const BuildLoadingIndicator(),
           failure: (message) => BuildError(errorText: message),
           showingResult: (result) => ResultList(result: result),
-          userInputFailure: (_) => InitialSearchView(),
+          userInputFailure: (_) => const InitialSearchView(),
         );
       },
       listener: (context, state) {
@@ -39,7 +39,9 @@ class SearchView extends StatelessWidget {
               ),
             );
           },
-          orElse: () {},
+          orElse: () {
+            return;
+          },
         );
       },
     );
@@ -69,7 +71,9 @@ class _InitialSearchViewState extends State<InitialSearchView> {
         actions: [
           IconButton(
             tooltip: 'Change app language',
-            onPressed: () => context.read<LanguageCubit>().toggleAppLanguage(),
+            onPressed: () => context.read<AppLanguageBloc>().add(
+                  const AppLanguageEvent.languageToggled(),
+                ),
             icon: const Icon(Icons.language_outlined),
           ),
           const SizedBox(
@@ -77,7 +81,9 @@ class _InitialSearchViewState extends State<InitialSearchView> {
           ),
           IconButton(
             tooltip: 'Change app theme',
-            onPressed: () => context.read<ThemeCubit>().changeAppTheme(),
+            onPressed: () => context.read<AppThemeBloc>().add(
+                  const AppThemeEvent.themeToggled(),
+                ),
             icon: const Icon(Icons.brightness_6_outlined),
           ),
         ],

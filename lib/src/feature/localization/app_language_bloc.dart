@@ -11,6 +11,8 @@ part 'app_language_bloc.freezed.dart';
 class AppLanguageState with _$AppLanguageState {
   const AppLanguageState._();
 
+  /// Returns current used language. Can be null, if something went wrong
+  /// while changing language
   Locale? get getCurrentLocaleOrNull => maybeWhen(
         usingLocale: (locale) => locale,
         orElse: () => null,
@@ -36,6 +38,10 @@ class AppLanguageEvent with _$AppLanguageEvent {
   /// User changed app language to [newLocale]
   const factory AppLanguageEvent.changeToLocale(Locale newLocale) =
       _ChangeToLocaleAppLanguageEvent;
+
+  /// User toggled language
+  const factory AppLanguageEvent.languageToggled() =
+      _LanguageToggledAppLanguageEvent;
 }
 
 class AppLanguageBloc extends Bloc<AppLanguageEvent, AppLanguageState> {
@@ -43,10 +49,12 @@ class AppLanguageBloc extends Bloc<AppLanguageEvent, AppLanguageState> {
     on<AppLanguageEvent>(
       (event, emit) => event.map<Future<void>>(
         changeToLocale: (event) => _changeToLocale(event, emit),
+        languageToggled: (event) => _languageToggled(event, emit),
       ),
     );
   }
 
+  /// Sets app language to new
   Future<void> _changeToLocale(
     _ChangeToLocaleAppLanguageEvent event,
     Emitter<AppLanguageState> emitter,
@@ -63,6 +71,23 @@ class AppLanguageBloc extends Bloc<AppLanguageEvent, AppLanguageState> {
       emitter(AppLanguageState.failure(message: error.toString()));
       // rethrow error to observer
       rethrow;
+    }
+  }
+
+  // this method used only for bloc training, in real app
+  // you should use [_changeToLocale] with GUI for user. Do not just
+  // toggle language
+  /// Toggles current app language
+  Future<void> _languageToggled(
+    _LanguageToggledAppLanguageEvent event,
+    Emitter<AppLanguageState> emitter,
+  ) async {
+    List<Locale> locales = const AppLocalizationDelegate().supportedLocales;
+    int currentLocale = locales.indexOf(state.getCurrentLocaleOrNull!);
+    if (currentLocale + 1 >= locales.length) {
+      emitter(AppLanguageState.usingLocale(locales[0]));
+    } else {
+      emitter(AppLanguageState.usingLocale(locales[currentLocale + 1]));
     }
   }
 }

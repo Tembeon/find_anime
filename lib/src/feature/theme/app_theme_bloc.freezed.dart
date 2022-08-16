@@ -422,6 +422,7 @@ mixin _$AppThemeEvent {
     required TResult Function() changedToLight,
     required TResult Function() changedToDark,
     required TResult Function() changedToSystem,
+    required TResult Function() themeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -429,6 +430,7 @@ mixin _$AppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -436,6 +438,7 @@ mixin _$AppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -446,6 +449,7 @@ mixin _$AppThemeEvent {
     required TResult Function(_ChangedToDarkAppThemeEvent value) changedToDark,
     required TResult Function(_ChangedToSystemAppThemeEvent value)
         changedToSystem,
+    required TResult Function(_ThemeToggledAppThemeEvent value) themeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -453,6 +457,7 @@ mixin _$AppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -460,6 +465,7 @@ mixin _$AppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -530,6 +536,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     required TResult Function() changedToLight,
     required TResult Function() changedToDark,
     required TResult Function() changedToSystem,
+    required TResult Function() themeToggled,
   }) {
     return changedToLight();
   }
@@ -540,6 +547,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
   }) {
     return changedToLight?.call();
   }
@@ -550,6 +558,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToLight != null) {
@@ -566,6 +575,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     required TResult Function(_ChangedToDarkAppThemeEvent value) changedToDark,
     required TResult Function(_ChangedToSystemAppThemeEvent value)
         changedToSystem,
+    required TResult Function(_ThemeToggledAppThemeEvent value) themeToggled,
   }) {
     return changedToLight(this);
   }
@@ -576,6 +586,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
   }) {
     return changedToLight?.call(this);
   }
@@ -586,6 +597,7 @@ class _$_ChangedToLightAppThemeEvent extends _ChangedToLightAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToLight != null) {
@@ -648,6 +660,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     required TResult Function() changedToLight,
     required TResult Function() changedToDark,
     required TResult Function() changedToSystem,
+    required TResult Function() themeToggled,
   }) {
     return changedToDark();
   }
@@ -658,6 +671,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
   }) {
     return changedToDark?.call();
   }
@@ -668,6 +682,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToDark != null) {
@@ -684,6 +699,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     required TResult Function(_ChangedToDarkAppThemeEvent value) changedToDark,
     required TResult Function(_ChangedToSystemAppThemeEvent value)
         changedToSystem,
+    required TResult Function(_ThemeToggledAppThemeEvent value) themeToggled,
   }) {
     return changedToDark(this);
   }
@@ -694,6 +710,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
   }) {
     return changedToDark?.call(this);
   }
@@ -704,6 +721,7 @@ class _$_ChangedToDarkAppThemeEvent extends _ChangedToDarkAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToDark != null) {
@@ -766,6 +784,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     required TResult Function() changedToLight,
     required TResult Function() changedToDark,
     required TResult Function() changedToSystem,
+    required TResult Function() themeToggled,
   }) {
     return changedToSystem();
   }
@@ -776,6 +795,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
   }) {
     return changedToSystem?.call();
   }
@@ -786,6 +806,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     TResult Function()? changedToLight,
     TResult Function()? changedToDark,
     TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToSystem != null) {
@@ -802,6 +823,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     required TResult Function(_ChangedToDarkAppThemeEvent value) changedToDark,
     required TResult Function(_ChangedToSystemAppThemeEvent value)
         changedToSystem,
+    required TResult Function(_ThemeToggledAppThemeEvent value) themeToggled,
   }) {
     return changedToSystem(this);
   }
@@ -812,6 +834,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
   }) {
     return changedToSystem?.call(this);
   }
@@ -822,6 +845,7 @@ class _$_ChangedToSystemAppThemeEvent extends _ChangedToSystemAppThemeEvent {
     TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
     TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
     TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
     required TResult orElse(),
   }) {
     if (changedToSystem != null) {
@@ -835,4 +859,128 @@ abstract class _ChangedToSystemAppThemeEvent extends AppThemeEvent {
   const factory _ChangedToSystemAppThemeEvent() =
       _$_ChangedToSystemAppThemeEvent;
   const _ChangedToSystemAppThemeEvent._() : super._();
+}
+
+/// @nodoc
+abstract class _$$_ThemeToggledAppThemeEventCopyWith<$Res> {
+  factory _$$_ThemeToggledAppThemeEventCopyWith(
+          _$_ThemeToggledAppThemeEvent value,
+          $Res Function(_$_ThemeToggledAppThemeEvent) then) =
+      __$$_ThemeToggledAppThemeEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ThemeToggledAppThemeEventCopyWithImpl<$Res>
+    extends _$AppThemeEventCopyWithImpl<$Res>
+    implements _$$_ThemeToggledAppThemeEventCopyWith<$Res> {
+  __$$_ThemeToggledAppThemeEventCopyWithImpl(
+      _$_ThemeToggledAppThemeEvent _value,
+      $Res Function(_$_ThemeToggledAppThemeEvent) _then)
+      : super(_value, (v) => _then(v as _$_ThemeToggledAppThemeEvent));
+
+  @override
+  _$_ThemeToggledAppThemeEvent get _value =>
+      super._value as _$_ThemeToggledAppThemeEvent;
+}
+
+/// @nodoc
+
+class _$_ThemeToggledAppThemeEvent extends _ThemeToggledAppThemeEvent {
+  const _$_ThemeToggledAppThemeEvent() : super._();
+
+  @override
+  String toString() {
+    return 'AppThemeEvent.themeToggled()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ThemeToggledAppThemeEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() changedToLight,
+    required TResult Function() changedToDark,
+    required TResult Function() changedToSystem,
+    required TResult Function() themeToggled,
+  }) {
+    return themeToggled();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? changedToLight,
+    TResult Function()? changedToDark,
+    TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
+  }) {
+    return themeToggled?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? changedToLight,
+    TResult Function()? changedToDark,
+    TResult Function()? changedToSystem,
+    TResult Function()? themeToggled,
+    required TResult orElse(),
+  }) {
+    if (themeToggled != null) {
+      return themeToggled();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ChangedToLightAppThemeEvent value)
+        changedToLight,
+    required TResult Function(_ChangedToDarkAppThemeEvent value) changedToDark,
+    required TResult Function(_ChangedToSystemAppThemeEvent value)
+        changedToSystem,
+    required TResult Function(_ThemeToggledAppThemeEvent value) themeToggled,
+  }) {
+    return themeToggled(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
+    TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
+    TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
+  }) {
+    return themeToggled?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ChangedToLightAppThemeEvent value)? changedToLight,
+    TResult Function(_ChangedToDarkAppThemeEvent value)? changedToDark,
+    TResult Function(_ChangedToSystemAppThemeEvent value)? changedToSystem,
+    TResult Function(_ThemeToggledAppThemeEvent value)? themeToggled,
+    required TResult orElse(),
+  }) {
+    if (themeToggled != null) {
+      return themeToggled(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ThemeToggledAppThemeEvent extends AppThemeEvent {
+  const factory _ThemeToggledAppThemeEvent() = _$_ThemeToggledAppThemeEvent;
+  const _ThemeToggledAppThemeEvent._() : super._();
 }

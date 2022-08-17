@@ -2,28 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import '../../../theme.dart';
-import '../../generated/l10n.dart';
-import '../cubit/language_cubit.dart';
-import '../cubit/theme_cubit.dart';
-import '../utils/app_router.dart';
+import '../../feature/localization/app_language_bloc.dart';
+import '../../feature/theme/app_theme_bloc.dart';
+import '../generated/localization/l10n.dart';
+import '../router/app_router.dart';
+import '../theme/theme.dart';
 
 class FindAnimeApp extends StatelessWidget {
-  const FindAnimeApp({
+  FindAnimeApp({
     Key? key,
-    this.themeCubit,
-    this.languageCubit,
-  }) : super(key: key);
+    AppThemeBloc? themeBloc,
+    AppLanguageBloc? languageBloc,
+  })  : _theme = themeBloc ??= AppThemeBloc(Brightness.dark),
+        _language = languageBloc ??= AppLanguageBloc(const Locale('en')),
+        super(key: key);
 
-  final ThemeCubit? themeCubit;
-  final LanguageCubit? languageCubit;
+  final AppThemeBloc _theme;
+  final AppLanguageBloc _language;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => themeCubit ?? ThemeCubit()),
-        BlocProvider(create: (_) => languageCubit ?? LanguageCubit()),
+        BlocProvider(create: (_) => _theme),
+        BlocProvider(create: (_) => _language),
       ],
       child: Builder(
         builder: (context) {
@@ -33,8 +35,8 @@ class FindAnimeApp extends StatelessWidget {
             routeInformationParser: AppRouter.beamerParser,
             theme: themeData(),
             darkTheme: darkThemeData(),
-            themeMode: context.watch<ThemeCubit>().appTheme,
-            locale: context.watch<LanguageCubit>().getLocale,
+            themeMode: context.watch<AppThemeBloc>().state.themeMode,
+            locale: context.watch<AppLanguageBloc>().state.getCurrentLocaleOrNull,
             supportedLocales: const AppLocalizationDelegate().supportedLocales,
             localizationsDelegates: const [
               AppLocalizationDelegate(),

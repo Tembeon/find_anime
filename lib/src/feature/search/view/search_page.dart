@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracemoe_repository/tracemoe_repository.dart';
 
+import '../bloc/dropzone_cubit.dart';
 import '../search.dart';
 import 'search_view.dart';
 
@@ -11,9 +12,13 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SearchCubit>(
-      create: (context) =>
-          SearchCubit(traceMoeRepository ?? TraceMoeRepository()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SearchBloc>(
+          create: (_) => SearchBloc(traceMoeRepository ?? TraceMoeRepository()),
+        ),
+        BlocProvider<DropZoneCubit>(create: (_) => DropZoneCubit()),
+      ],
       child: const SearchView(),
     );
   }

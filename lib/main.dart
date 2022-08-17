@@ -1,17 +1,23 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl_standalone.dart';
-import 'package:url_strategy/url_strategy.dart';
+import 'dart:async';
 
-import 'app/view/app.dart';
-import 'app_observer.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
+import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'runner_stub.dart'
+    if (dart.library.io) 'runner_io.dart'
+    if (dart.library.html) 'runner_web.dart' as runner;
+import 'src/core/bloc/app_observer.dart';
 
 Future<void> main() async {
-  setPathUrlStrategy();
-  if (!kIsWeb) await findSystemLocale();
-  BlocOverrides.runZoned(
-    () => runApp(const FindAnimeApp()),
-    blocObserver: AppObserver(),
+  runZonedGuarded(
+    () {
+      Bloc.observer = AppObserver.instance();
+      Bloc.transformer = bloc_concurrency.sequential<Object?>();
+      runner.run();
+    },
+    (error, stack) {
+      debugPrint('Error: $error\n\nStacktrace: $stack');
+    },
   );
 }

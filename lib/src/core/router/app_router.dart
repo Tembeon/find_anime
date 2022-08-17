@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 
-import '../../search/search.dart';
+import '../../feature/search/search.dart';
 
 class AppRouter {
   static final beamerParser = BeamerParser();

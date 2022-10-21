@@ -1,24 +1,21 @@
-# FindAnime
+![](gh_assets/overview.png)
 
-This project was built as BLoC training. 
+Find anime name by image or video. 
 
-## Description
-
-Find anime name by image URL. 
-
-Try it:
+Try:
 * Web - https://tembeon.github.io/find_anime/
 * Android - https://github.com/Tembeon/find_anime/releases/latest
 
 ## Features
-* Search by an image url
+* Search via media url, dropping or selecting file, pasting content
+* Light and Dark themes
+* Internationalization
 * Install as app to your device
 * Search engine by https://trace.moe/about
 
-### I learned how to:
-* generate models with [freezed](https://pub.dev/packages/freezed) and [json_serializable](https://pub.dev/packages/json_serializable) packages
-* bring l10n support with [Intl](https://pub.dev/packages/intl) and flutter_localizations packages
-* use [bloc](https://pub.dev/packages/bloc) with flutter
+## Screenshots
+![](gh_assets/search_page.png)
+![](gh_assets/result_page.png)
 
 ## How to build
 1. Clone repo
@@ -32,4 +29,4 @@ Try it:
 - [X] Add ability to choose app theme
 - [X] Maybe: search via Ctrl + V image
 - [ ] Maybe: get image via mobile sharing dialog
-- [ ] Maybe: compile on Windows, Android, Linux
+- [X] Maybe: compile on Windows, Android, ~~Linux~~
